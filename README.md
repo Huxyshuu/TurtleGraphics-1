@@ -4,7 +4,7 @@ This is the template for the projects. Please copy the project description here.
 You can use Markdown language to render it as formatted **HTML** file.
 
 # Group
-- Member 1
+- Hugo Tamm
 - Member 2
 - Member 3
 - Member 4
