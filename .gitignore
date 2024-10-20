@@ -47,3 +47,8 @@ dkms.conf
 
 # Build directory
 build
+
+# Other
+.vscode
+.qtcreator
+CMakeLists.txt.user

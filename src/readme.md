@@ -4,3 +4,8 @@ You can also place hpp files in a separate directory `include `.
 
 You can create a summary of files here. It might be useful to describe 
 file relations, and brief summary of their content.
+
+Contents:
+main.cpp
+mainwindow.cpp, includes "../ui/ui_mainwindow.h"
+mainwindow.h
