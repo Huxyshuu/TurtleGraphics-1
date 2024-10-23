@@ -8,45 +8,35 @@ In each meeting, you are required to discuss:
 4. Deviations and changes to the project plan, if any
 
 
-# Meeting dd.mm.2021 HH::MM
+# Week 43 - Meeting 23.10.2024 16:00
 
 **Participants**: 
-1. Member 1
-2. Member 2
-3. Member 3
-4. Member 4 
+1. Hugo Tamm
+2. Xiwei Zhao
+3. Giang Le
+4. Mathias Castrén 
 
 ## Summary of works
-1. Member 1 
-   
-   Implementing the class XX. Tested the class XX. 
-   Results are in `tests/<class-xx-tests>`. Resolved the identified problems.
-
-2. Member 2
-
-   Same as above
-
-3. ...
+1. CMakelists.txt is done
 
 ## Challenges
 
-1. The integration of UI with the monsters requires an abstract interface.
-2. ...
+1. Getting Qt IDE to work with the repository for everyone and setting up the environment.
 
 ## Actions
-1. Member 1 is going to look into defining an abstract interface for monsters 
-   to enable easy UI integration.
-2. Member 2 is going to work with Member 1 to use abstract interface in derived 
-   monster classes.
-3. Member 2 is going to test the interface.
-4. Member 3 is going to use ...
+No documentable actions as of now, except that the CMakelists.txt is done.
 
 > Please reflect these action decisions in your git commit messages so that 
 > your group members and advisor can follow the progress.
 
 ## Project status 
-Short summary of current project status. 
+Working on the project plan and setting up the Qt environment.
 
 ### TODOs
-1. Member 1: Write an action.
-2. ...
+1. Hugo is going to write the important files such as README, Meeting Notes and about how the program works. CMakelists.txt is already done.
+
+2. Mathias is going to work the class relationship diagram of the program.
+
+3. Giang is going to write about how to the program is used
+
+4. Xiwei will work on the III and IV parts of the project plan, figuring out the external libraries and the more detailed plan for the sprints.
