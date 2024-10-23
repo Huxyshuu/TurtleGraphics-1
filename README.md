@@ -1,15 +1,33 @@
-# Project Name (replace here!)
+# Turtle Graphics
 
 This is the template for the projects. Please copy the project description here. 
 You can use Markdown language to render it as formatted **HTML** file.
 
 # Group
 - Hugo Tamm
-- Member 2
-- Member 3
-- Member 4
+- Mathias Castrén
+- Xiwei Zhao
+- Giang Le
 
 # Repository organization
+The file structure will be as follows:
+```
+📦 Turtle-1
+ ├─ 📂 doc
+ ├─ 📂 libs
+ ├─ 📂 plan
+ ├─ 📂 src
+ │  ├─ 📄 main.cpp
+ │  ├─ 📄 mainwindow.cpp
+ │  ├─ 📄 mainwindow.h
+ │  └─ 📄 readme.md
+ ├─ 📂 tests
+ ├─ 📂 ui
+ │ ...
+ ├─ 📄 CMakeLists.txt
+ ├─ 📄 README.md
+...
+```
 Your project implementation should follow the skelaton organization in this repository.
 See readme.md files in each folder.
 
@@ -53,5 +71,5 @@ Please go over the *Project Guidelines* for details.
 # TODOs (Date)
 You can create a list of TODOs in this file.
 The recommended format is:
-- Complete class implementation **foo**. Assigned to \<Member 1\>
-- Test ...
+- Complete the project plan by 31.10.2024
+- 
