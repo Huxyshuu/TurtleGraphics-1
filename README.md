@@ -1,7 +1,23 @@
 # Turtle Graphics
 
-This is the template for the projects. Please copy the project description here. 
-You can use Markdown language to render it as formatted **HTML** file.
+This project implements a Turtle Graphics simulation using the Qt framework. Turtle Graphics allows users to create visual patterns and designs by controlling a "turtle" that moves around the screen, leaving a trail as it goes. This application lets users command the turtle to move forward, turn, and change colors to hopefully create complex and dynamic graphics.
+
+## Features
+- **Interactive Controls**: Move the turtle with basic commands like forward and turn.
+- **GUI Integration**: Built with Qt's `QGraphicsView` or `QGraphicsScene` for smooth, responsive graphics.
+- More coming soon in 2025
+
+## Getting Started
+1. Clone the repository.
+2. Install Qt (5.x or later).
+3. Build and run the project using Qt Creator or the command line.
+
+## Example Commands
+- **Forward**: Move the turtle forward by a specified number of steps.
+- **Turn**: Rotate the turtle a specified angle.
+- **Pen Up**: Stop drawing the trail
+- **Pen Down**: Continue drawing the trail
+- **Color(R,G,B)** Change color of the trail
 
 # Group
 - Hugo Tamm
