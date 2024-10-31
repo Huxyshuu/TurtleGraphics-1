@@ -16,14 +16,16 @@ In each meeting, you are required to discuss:
 3. Giang Le
 4. Mathias Castrén 
 
-## Summary of works
+### Summary of works
+
 1. CMakelists.txt is done
 
-## Challenges
+### Challenges
 
 1. Getting Qt Creator IDE to work with the repository for everyone and setting up the environment.
 
-## Actions
+### Actions
+
 1. Hugo is going to write the important files such as README, Meeting Notes and about how the program works in the project plan. CMakelists.txt is already done.
 
 2. Mathias is going to create the class relationship diagram of the program.
@@ -35,12 +37,44 @@ In each meeting, you are required to discuss:
 > Please reflect these action decisions in your git commit messages so that 
 > your group members and advisor can follow the progress.
 
-## Project status 
+### Project status 
+
 Working on the project plan and setting up the Qt environment.
 
 ### TODOs
+
 - Create the UML diagram for project structure (Mathias)
 - Describe how to the program works (Hugo)
 - Describe how the program is used (Giang)
 - Document the external libraries and the detailed plan for sprints (Xiwei)
 - Get QtCreator running (everyone) ^^
+
+
+
+## Week 44 - Meeting 31.10.2024 14:00
+
+**Participants:** all members.
+
+### What we have done?
+
+- Plan completed.
+- Environment configuration done
+- Designed the first version main window
+
+
+
+### What to do next week?
+
+- Make the turtle move
+  - turtle, input controller
+- Present the trajectory
+  - turtle, input controller
+- user interface design
+  - map, mainwindow
+
+
+
+### Task segmentation:
+
+
+
