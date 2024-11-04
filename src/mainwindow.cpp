@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     QGraphicsScene *scene = new QGraphicsScene(this);
 
     // Create a Turtle object
-    Turtle *turtle = new Turtle(":/assets/turtle_mid.png");
+    Turtle *turtle = new Turtle(":/assets/turtle_mid.png", scene);
     setTurtle(turtle);
 
     // Add the item to the scene
