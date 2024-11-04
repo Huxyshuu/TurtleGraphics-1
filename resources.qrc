@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>assets/rocket_small.png</file>
+        <file>assets/turtle_big.png</file>
+        <file>assets/turtle_mid.png</file>
+        <file>assets/turtle_small.png</file>
+    </qresource>
+</RCC>
