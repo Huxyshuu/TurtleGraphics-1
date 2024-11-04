@@ -13,7 +13,11 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets) # This line requires QtCreator IDE
 qt_standard_project_setup()
 
 file(GLOB_RECURSE MY_SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/src/*.hpp") # Includes all .cpp files from the src folder into the project
-add_executable(turtle-1 "${MY_SOURCES}")
+add_executable(
+    turtle-1
+    ${MY_SOURCES}
+    resources.qrc
+)
 
 target_link_libraries(turtle-1 PRIVATE Qt6::Widgets)
 
