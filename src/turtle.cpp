@@ -8,8 +8,11 @@ Turtle::Turtle(const QString& imagePath)
     // Check if the image loaded successfully
     if (!turtlePixmap_.isNull()) {
         setPixmap(turtlePixmap_);
-        qDebug() << "Turtle image loaded successfully from path:" << imagePath;
 
+        // Move the origin of the pixmap to its center
+        setOffset(turtlePixmap_.width() / -2.0, turtlePixmap_.height() / -2.0);
+
+        qDebug() << "Turtle image loaded successfully from path:" << imagePath;
     } else {
         qDebug() << "Failed to load turtle image from path:" << imagePath;
     }
