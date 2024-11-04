@@ -6,6 +6,7 @@
 #include <QMessageBox>
 #include <iostream>
 #include <QDir>
+#include "turtle.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -15,24 +16,36 @@ MainWindow::MainWindow(QWidget *parent)
 
     QGraphicsScene *scene = new QGraphicsScene(this);
 
-    QPixmap turtlePixmap(":/assets/turtle_mid.png"); // Path copied from the .qrc file. Mid picture seems like the best size as a default.
+    // Create a Turtle object
+    Turtle *turtle = new Turtle(":/assets/turtle_mid.png");
+    setTurtle(turtle);
 
-    if (!turtlePixmap.isNull()) {
-        QGraphicsPixmapItem *turtleItem = new QGraphicsPixmapItem(turtlePixmap);
+    // Add the item to the scene
+    scene->addItem(turtle);
 
-        // Add the item to the scene
-        scene->addItem(turtleItem);
-
-        ui->graphicsView->setScene(scene);
-    } else {
-        QMessageBox::warning(this, "Error", "Failed to load turtle image.");
-        delete scene;
-    }
+    ui->graphicsView->setScene(scene);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+// Parses input commands from user
+std::pair<std::string, int> MainWindow::parseCommand(const std::string& input) {
+    std::istringstream stream(input);
+    std::string command;
+    int value;
+
+    if (stream >> command >> value) {
+        return {command, value};
+    } else {
+        throw std::invalid_argument("Invalid input");
+    }
+}
+
+void MainWindow::setTurtle(Turtle *turtle) {
+    turtle_ = turtle;
 }
 
 
@@ -43,9 +56,33 @@ void MainWindow::on_lineEdit_returnPressed()
     if (lineEdit) {
         QString input = lineEdit->text();  // Get the entered text
 
-        std::cout << input.toStdString() << std::endl;
+        std::string command = input.toStdString();
+
+        // Makes all commands lowercase, so user doesn't have to worry about
+        // case-sensitivty
+        for (auto& c : command) {
+            c = tolower(c);
+        }
+
+        try {
+            std::pair<std::string, int> commandData = parseCommand(command);
+            std::cout << commandData.first << " " << commandData.second << std::endl;
+
+            if (commandData.first == "forward") {
+                turtle_->forward(commandData.second);
+            }
+
+            if (commandData.first == "turn") {
+                turtle_->turn(commandData.second);
+            }
+
+        } catch (const std::invalid_argument& error) {
+            std::cerr << error.what() << std::endl; // typing a string into int causes error
+        }
 
         lineEdit->clear();
+
+
     }
 }
 
