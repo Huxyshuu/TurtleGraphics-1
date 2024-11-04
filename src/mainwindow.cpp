@@ -6,6 +6,7 @@
 #include <QMessageBox>
 #include <iostream>
 #include <QDir>
+#include <sstream>
 #include "turtle.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -22,6 +23,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Add the item to the scene
     scene->addItem(turtle);
+
+    // Draws a red circle in the center of the screen
+    QGraphicsEllipseItem *dot = scene->addEllipse(-5, -5, 10, 10, QPen(Qt::red), QBrush(Qt::red));
+    scene->addItem(dot);
 
     ui->graphicsView->setScene(scene);
 }

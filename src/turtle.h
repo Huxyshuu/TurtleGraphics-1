@@ -9,10 +9,17 @@ class Turtle : public QGraphicsPixmapItem
 public:
     Turtle(const QString& imagePath, QGraphicsScene* scene);
 
+    /**
+     * @brief Moves the turtle in the facing direction a distance given
+     * @param distance to be moved as a int
+     */
     void forward(int distance);
-    void turn(int angle);
 
-    QPixmap getPixmap() const;
+    /**
+     * @brief Rotates the turtle counter-clockwise the amount specified in angle
+     * @param angle to be turned as a int
+     */
+    void turn(int angle);
 
 private:
     QPixmap turtlePixmap_;
