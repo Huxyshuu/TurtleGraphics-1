@@ -11,67 +11,217 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Turtle Graphics</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background: #FFF;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QListView" name="listView">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>140</y>
+      <y>120</y>
       <width>261</width>
-      <height>301</height>
+      <height>341</height>
      </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>50</y>
-      <width>261</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>261</width>
-      <height>0</height>
-     </size>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 11pt &quot;Consolas&quot;; color: rgb(0, 0, 0);</string>
-    </property>
-    <property name="text">
-     <string>Enter a command for the turtle to follow</string>
-    </property>
-    <property name="textFormat">
-     <enum>Qt::TextFormat::AutoText</enum>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
+     <string notr="true">background-color: #F4F4F4;
+border-radius: 10px;
+font: 14px &quot;consolas&quot;;
+min-width: 10em;
+padding: 6px;</string>
     </property>
    </widget>
    <widget class="QGraphicsView" name="graphicsView">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>100</y>
-      <width>421</width>
-      <height>341</height>
+      <x>330</x>
+      <y>130</y>
+      <width>401</width>
+      <height>331</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #FFF;
+border-radius: 10px;
+font: 14px &quot;consolas&quot;;
+min-width: 10em;
+padding: 6px;
+</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>100</y>
+      <y>60</y>
       <width>261</width>
-      <height>31</height>
+      <height>41</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #F4F4F4;
+border-radius: 10px;
+font: 14px &quot;consolas&quot;;
+min-width: 10em;
+padding: 6px;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string>Enter a command</string>
+    </property>
    </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>60</y>
+      <width>191</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 11pt &quot;Consolas&quot;; color: #A4A4A4;</string>
+    </property>
+    <property name="text">
+     <string>Current position (0, 0)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>60</y>
+      <width>191</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 11pt &quot;Consolas&quot;; color: #A4A4A4;</string>
+    </property>
+    <property name="text">
+     <string>Current rotation: 0°</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QFrame" name="TopLeftCorner">
+    <property name="geometry">
+     <rect>
+      <x>319</x>
+      <y>119</y>
+      <width>71</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-top: 4px solid #F4F4F4;
+border-left: 4px solid #F4F4F4;
+width: 10px;
+height: 10px;
+background: transparent;
+border-top-left-radius: 10px;
+</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Shadow::Raised</enum>
+    </property>
+   </widget>
+   <widget class="QFrame" name="TopRightCorner">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>120</y>
+      <width>71</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-top: 4px solid #F4F4F4;
+border-right: 4px solid #F4F4F4;
+width: 10px;
+height: 10px;
+background: transparent;
+border-top-right-radius: 10px;
+</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Shadow::Raised</enum>
+    </property>
+   </widget>
+   <widget class="QFrame" name="BottomRightCorner">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>400</y>
+      <width>71</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-bottom: 4px solid #F4F4F4;
+border-right: 4px solid #F4F4F4;
+width: 10px;
+height: 10px;
+background: transparent;
+border-bottom-right-radius: 10px;
+</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Shadow::Raised</enum>
+    </property>
+   </widget>
+   <widget class="QFrame" name="BottomLeftCorner">
+    <property name="geometry">
+     <rect>
+      <x>319</x>
+      <y>399</y>
+      <width>71</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-bottom: 4px solid #F4F4F4;
+border-left: 4px solid #F4F4F4;
+width: 10px;
+height: 10px;
+background: transparent;
+border-bottom-left-radius: 10px;
+</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Shadow::Raised</enum>
+    </property>
+   </widget>
+   <zorder>listView</zorder>
+   <zorder>lineEdit</zorder>
+   <zorder>label</zorder>
+   <zorder>label_2</zorder>
+   <zorder>TopLeftCorner</zorder>
+   <zorder>graphicsView</zorder>
+   <zorder>TopRightCorner</zorder>
+   <zorder>BottomRightCorner</zorder>
+   <zorder>BottomLeftCorner</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>

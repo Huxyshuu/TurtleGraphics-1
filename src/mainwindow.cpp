@@ -29,6 +29,10 @@ MainWindow::MainWindow(QWidget *parent)
     scene->addItem(dot);
 
     ui->graphicsView->setScene(scene);
+
+    // Keep the view from moving or adjusting when the turtle moves
+    ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
 MainWindow::~MainWindow()
