@@ -39,7 +39,3 @@ void Turtle::turn(int angle) {
         setPixmap(turtlePixmap_);
     }
 };
-
-QPixmap Turtle::getPixmap() const {
-    return turtlePixmap_;
-}
