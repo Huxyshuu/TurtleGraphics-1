@@ -20,7 +20,17 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    /**
+     * @brief Sets the given turtle object as the main turtle of the app
+     * @param turtle object as a pointer
+     */
     void setTurtle(Turtle *turtle);
+
+    /**
+     * @brief Parses the input string into a pair <string, int>
+     * @param input string as a std::string reference
+     * @return a pair containing the command and the command value (e.g., distance, angle)
+     */
     std::pair<std::string, int> parseCommand(const std::string& input);
 
 private slots:
