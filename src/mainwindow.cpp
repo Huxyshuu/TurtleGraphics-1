@@ -58,6 +58,7 @@ std::pair<std::string, int> MainWindow::parseCommand(const std::string& input) {
 
     if (stream >> command >> value) {
         return {command, value};
+
     } else {
         throw std::invalid_argument("Invalid input");
     }
@@ -96,11 +97,6 @@ void MainWindow::on_lineEdit_returnPressed()
                 turtle_->turn(commandData.second);
                 storage->addToHistory(str);
             }
-            if (command == "help"){
-                storage->getHistory();
-            }
-
-
 
         } catch (const std::invalid_argument& error) {
             std::cerr << error.what() << std::endl; // typing a string into int causes error
