@@ -5,6 +5,7 @@
 #include <QGraphicsScene>
 
 #include "turtle.h"
+#include "storage.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -39,5 +40,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     Turtle* turtle_;
+    QStringList history;
+    Storage *storage;
 };
 #endif // MAINWINDOW_H
