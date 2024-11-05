@@ -8,10 +8,12 @@
 #include <QDir>
 #include <sstream>
 #include "turtle.h"
+#include "storage.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , storage(new Storage())
 {
     ui->setupUi(this);
 
@@ -33,6 +35,14 @@ MainWindow::MainWindow(QWidget *parent)
     // Keep the view from moving or adjusting when the turtle moves
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    //create new storage object
+    if (storage->getModel()) {
+        std::cout << "Setting historyView model.\n";
+        ui->listView->setModel(storage->getModel());  // Set the storage model to display history
+    } else {
+        std::cerr << "Error: Storage model is not initialized!\n";
+    }
 }
 
 MainWindow::~MainWindow()
@@ -61,7 +71,6 @@ void MainWindow::setTurtle(Turtle *turtle) {
 void MainWindow::on_lineEdit_returnPressed()
 {
     QLineEdit *lineEdit = qobject_cast<QLineEdit*>(sender());
-
     if (lineEdit) {
         QString input = lineEdit->text();  // Get the entered text
 
@@ -76,14 +85,22 @@ void MainWindow::on_lineEdit_returnPressed()
         try {
             std::pair<std::string, int> commandData = parseCommand(command);
             std::cout << commandData.first << " " << commandData.second << std::endl;
+            QString str = ( QString::fromStdString(commandData.first) + " " + QString::number(commandData.second) );
 
             if (commandData.first == "forward") {
                 turtle_->forward(commandData.second);
+                storage->addToHistory(str);
             }
 
             if (commandData.first == "turn") {
                 turtle_->turn(commandData.second);
+                storage->addToHistory(str);
             }
+            if (command == "help"){
+                storage->getHistory();
+            }
+
+
 
         } catch (const std::invalid_argument& error) {
             std::cerr << error.what() << std::endl; // typing a string into int causes error
