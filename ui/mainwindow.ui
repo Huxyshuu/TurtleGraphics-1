@@ -34,7 +34,8 @@
 border-radius: 10px;
 font: 14px &quot;consolas&quot;;
 min-width: 10em;
-padding: 6px;</string>
+padding: 6px;
+color: #2E2E2E;</string>
     </property>
    </widget>
    <widget class="QGraphicsView" name="graphicsView">
@@ -69,7 +70,8 @@ padding: 6px;
 border-radius: 10px;
 font: 14px &quot;consolas&quot;;
 min-width: 10em;
-padding: 6px;</string>
+padding: 6px;
+color: #2E2E2E;</string>
     </property>
     <property name="text">
      <string/>
