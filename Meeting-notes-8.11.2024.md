@@ -8,7 +8,7 @@ In each meeting, you are required to discuss:
 4. Deviations and changes to the project plan, if any
 
 
-## Week 44 - Meeting 31.10.2024 16:00
+## Week 44 - Meeting 8.11.2024 14:00
 
 **Participants**: 
 1. Hugo Tamm
@@ -18,42 +18,29 @@ In each meeting, you are required to discuss:
 
 ## Summary of works
 
-1. project plan finished
-2. Environment configuration done
-3. Designed the first version main window
+The basics for the program have been completed. Turtle can turn and move how the user wants it to. 
+User can also see the trajectory of the turtle and the command history.
 
 ## Challenges
 
-1. Getting Qt Creator IDE to work with the repository for everyone and setting up the environment.
 
 ## Actions
-
-1. Xiwei
-- show the trajectory
-2. Mathias
-   - user interface: terminal
-3. Giang
-   - load functions: read commands file
-4. Hugo
-   - make the turtle show up
-   - make it move forward
 
 > Please reflect these action decisions in your git commit messages so that 
 > your group members and advisor can follow the progress.
 
 ## Project status 
 
-Working on the project plan and setting up the Qt environment.
+Perfecting the basic features and implementing additional features.
 
 ## TODOs:
 
-- make the turtle show up
-- Make the turtle move
-  - turtle, input controller
-- Present the trajectory
-  - turtle, input controller
-- get to know the user interface design system
-  - map
-  - terminal block
-- unit testing
+1. Xiwei
+  - Make the turtle smoother and design a language instructions processor for the user ().
+2. Mathias
+   - Make a help command and make an invalid input popup for invalid commands.
+3. Giang
+   - Fix upload feature + add sound.
+4. Hugo
+   - Think of nice features to add (and maybe implement them).
 
