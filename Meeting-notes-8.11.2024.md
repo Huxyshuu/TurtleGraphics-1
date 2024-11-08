@@ -36,7 +36,7 @@ Perfecting the basic features and implementing additional features.
 ## TODOs:
 
 1. Xiwei
-  - Make the turtle smoother and design a language instructions processor for the user ().
+   - Make the turtle smoother and design a language instructions processor for the user.
 2. Mathias
    - Make a help command and make an invalid input popup for invalid commands.
 3. Giang
