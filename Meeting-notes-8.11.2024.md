@@ -38,7 +38,7 @@ Perfecting the basic features and implementing additional features.
 1. Xiwei
    - Make the turtle smoother and design a language instructions processor for the user.
 2. Mathias
-   - Make a help command and make an invalid input popup for invalid commands.
+   - Make a help command and fix the input validation.
 3. Giang
    - Fix upload feature + add sound.
 4. Hugo
