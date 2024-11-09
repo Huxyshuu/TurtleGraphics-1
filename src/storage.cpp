@@ -17,3 +17,7 @@ QStringListModel *Storage::getModel() const {
 QStringList Storage::getHistory() const{
     return history;
 }
+
+void Storage::helpDisplay() {
+    model->setStringList(helplist);
+}
