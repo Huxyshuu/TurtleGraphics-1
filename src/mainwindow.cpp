@@ -7,6 +7,8 @@
 #include <iostream>
 #include <QDir>
 #include <sstream>
+#include <QFile>
+#include <QTextStream>
 #include "turtle.h"
 #include "storage.h"
 
@@ -43,6 +45,8 @@ MainWindow::MainWindow(QWidget *parent)
     } else {
         std::cerr << "Error: Storage model is not initialized!\n";
     }
+
+    connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::on_uploadButton_clicked);
 }
 
 MainWindow::~MainWindow()
@@ -108,4 +112,48 @@ void MainWindow::on_lineEdit_returnPressed()
     }
 }
 
+// Upload file
+void MainWindow::on_uploadButton_clicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Command File"), "", tr("Text Files (*.txt)"));
+    if (fileName.isEmpty())
+        return;
 
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QMessageBox::warning(this, tr("Error"), tr("Unable to open file"));
+        return;
+    }
+
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        std::string command = line.toStdString();
+
+        // Makes all commands lowercase, so user doesn't have to worry about
+        // case-sensitivty
+        for (auto& c : command) {
+            c = tolower(c);
+        }
+
+        try {
+            std::pair<std::string, int> commandData = parseCommand(command);
+            std::cout << commandData.first << " " << commandData.second << std::endl;
+            QString str = ( QString::fromStdString(commandData.first) + " " + QString::number(commandData.second) );
+
+            if (commandData.first == "forward") {
+                turtle_->forward(commandData.second);
+                storage->addToHistory(str);
+            }
+
+            if (commandData.first == "turn") {
+                turtle_->turn(commandData.second);
+                storage->addToHistory(str);
+            }
+
+        } catch (const std::invalid_argument& error) {
+            std::cerr << error.what() << std::endl; // typing a string into int causes error
+        }
+    }
+    file.close();
+}

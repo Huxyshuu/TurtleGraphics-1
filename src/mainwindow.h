@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
+#include <QFileDialog>
 
 #include "turtle.h"
 #include "storage.h"
@@ -36,6 +37,7 @@ public:
 
 private slots:
     void on_lineEdit_returnPressed();
+    void on_uploadButton_clicked();
 
 private:
     Ui::MainWindow *ui;
