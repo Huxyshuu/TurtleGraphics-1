@@ -26,6 +26,9 @@
    <string notr="true">background: #FFF;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <widget class="QListView" name="listView">
     <property name="geometry">
      <rect>
@@ -36,12 +39,41 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #F4F4F4;
-border-radius: 10px;
-font: 14px &quot;consolas&quot;;
-min-width: 10em;
-padding: 6px;
-color: #2E2E2E;</string>
+     <string notr="true">QListView {
+    background-color: #F4F4F4;
+    border-radius: 10px;
+    font: 14px &quot;Consolas&quot;;
+    min-width: 10em;
+    padding: 6px;
+    color: #2E2E2E;
+    border: none;
+}
+
+QListView::item:selected {
+    background: transparent;
+    color: #2E2E2E;
+}
+
+QScrollBar:vertical {
+    width: 10px;
+    background: transparent;
+}
+
+QScrollBar::handle:vertical {
+    background:  #AAA;
+    border-radius: 4px;
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical,
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
+    background: none;
+}
+
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical,
+QScrollBar::left-arrow:horizontal, QScrollBar::right-arrow:horizontal {
+    background: none;
+}
+</string>
     </property>
     <property name="verticalScrollBarPolicy">
      <enum>Qt::ScrollBarPolicy::ScrollBarAsNeeded</enum>
@@ -262,20 +294,130 @@ border-bottom-left-radius: 10px;
      <rect>
       <x>20</x>
       <y>10</y>
-      <width>148</width>
+      <width>121</width>
       <height>32</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #F4F4F4;
-border-radius: 10px;
-font: 14px &quot;consolas&quot;;
-min-width: 8em;
-padding: 6px;
-color: #2E2E2E;</string>
+     <string notr="true">QPushButton {
+	background-color: #F4F4F4;
+	border-radius: 10px;
+	font: 14px &quot;consolas&quot;;
+	min-width: 5em;
+	padding: 6px;
+	color: #2E2E2E;
+}
+
+QPushButton:pressed {
+    background-color: #D0D0D0;
+    color: #2E2E2E;
+}
+
+QPushButton:hover {
+    background-color: #A2A2A2;
+}</string>
     </property>
     <property name="text">
-     <string>Upload file</string>
+     <string>Load</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>156</x>
+      <y>10</y>
+      <width>121</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	background-color: #F4F4F4;
+	border-radius: 10px;
+	font: 14px &quot;consolas&quot;;
+	min-width: 5em;
+	padding: 6px;
+	color: #2E2E2E;
+}
+
+QPushButton:pressed {
+    background-color: #D0D0D0;
+    color: #2E2E2E;
+}
+
+QPushButton:hover {
+    background-color: #A2A2A2;
+}</string>
+    </property>
+    <property name="text">
+     <string>Save</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>10</y>
+      <width>91</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 10pt &quot;Consolas&quot;; color: #A4A4A4;</string>
+    </property>
+    <property name="text">
+     <string>Drawing:</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton">
+    <property name="geometry">
+     <rect>
+      <x>385</x>
+      <y>21</y>
+      <width>16</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QRadioButton {
+    color: #2E2E2E;
+}
+
+QRadioButton::indicator {
+    border: 1px solid #A2A2A2;
+    background-color: #A2A2A2;
+    width: 10px;
+    height: 10px;
+    border-radius: 6px;
+}
+
+QRadioButton::indicator:checked {
+    background-color: #A2A2A2;
+    border: 1px solid #A2A2A2;
+}
+
+QRadioButton::indicator:unchecked {
+    background-color: transparent;
+    border: 1px solid #A2A2A2;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
     </property>
    </widget>
    <zorder>listView</zorder>
@@ -288,6 +430,9 @@ color: #2E2E2E;</string>
    <zorder>BottomRightCorner</zorder>
    <zorder>BottomLeftCorner</zorder>
    <zorder>pushButton</zorder>
+   <zorder>pushButton_2</zorder>
+   <zorder>label_3</zorder>
+   <zorder>radioButton</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>

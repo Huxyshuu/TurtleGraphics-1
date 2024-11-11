@@ -44,6 +44,8 @@ private slots:
     void on_lineEdit_returnPressed();
     void on_uploadButton_clicked();
 
+    void on_radioButton_toggled(bool checked);
+
 private:
     Ui::MainWindow *ui;
     Turtle* turtle_;

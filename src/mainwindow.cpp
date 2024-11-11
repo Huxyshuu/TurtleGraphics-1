@@ -104,6 +104,19 @@ void MainWindow::on_lineEdit_returnPressed()
                 turtle_->forward(commandData.second);
                 storage->addToHistory(str);
             }
+
+            if (commandData.first == "go") {
+                std::cout << "This go function needs a better parsing to work :(" << std::endl;
+            }
+
+            if (commandData.first == "pen") {
+                std::cout << "Pen function" << std::endl;
+            }
+
+            if (commandData.first == "pen") {
+                std::cout << "Pen function" << std::endl;
+            }
+
             if (commandData.first == "help") {
                 storage->helpDisplay();
             }
@@ -125,6 +138,7 @@ void MainWindow::on_lineEdit_returnPressed()
 // Upload file
 void MainWindow::on_uploadButton_clicked()
 {
+    // This whole function should probably be moved to the storage.cpp/h according to the initial plan?
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Command File"), "", tr("Text Files (*.txt)"));
     if (fileName.isEmpty())
         return;
@@ -167,3 +181,10 @@ void MainWindow::on_uploadButton_clicked()
     }
     file.close();
 }
+
+void MainWindow::on_radioButton_toggled(bool checked)
+{
+    std::cout << "drawing: " << std::boolalpha << checked << std::endl;
+    turtle_->setDrawing(checked);
+}
+
