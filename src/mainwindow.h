@@ -43,6 +43,7 @@ private:
     Ui::MainWindow *ui;
     Turtle* turtle_;
     QStringList history;
+    QStringList helplist;
     Storage *storage;
 };
 #endif // MAINWINDOW_H

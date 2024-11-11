@@ -40,7 +40,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     //create new storage object
     if (storage->getModel()) {
-        std::cout << "Setting historyView model.\n";
         ui->listView->setModel(storage->getModel());  // Set the storage model to display history
     } else {
         std::cerr << "Error: Storage model is not initialized!\n";
@@ -58,14 +57,16 @@ MainWindow::~MainWindow()
 std::pair<std::string, int> MainWindow::parseCommand(const std::string& input) {
     std::istringstream stream(input);
     std::string command;
-    int value;
+    int value = 0;
 
-    if (stream >> command >> value) {
-        return {command, value};
-
-    } else {
-        throw std::invalid_argument("Invalid input");
+    if (!(stream >> command)) {
+         throw std::invalid_argument("Invalid input");
     }
+    if (stream >> value) {
+        return {command, value};
+    }
+
+    return {command, value}; // returns just the command without a real value
 }
 
 void MainWindow::setTurtle(Turtle *turtle) {
@@ -73,6 +74,7 @@ void MainWindow::setTurtle(Turtle *turtle) {
 }
 
 
+// Input text bar
 void MainWindow::on_lineEdit_returnPressed()
 {
     QLineEdit *lineEdit = qobject_cast<QLineEdit*>(sender());
@@ -95,6 +97,9 @@ void MainWindow::on_lineEdit_returnPressed()
             if (commandData.first == "forward") {
                 turtle_->forward(commandData.second);
                 storage->addToHistory(str);
+            }
+            if (commandData.first == "help") {
+                storage->helpDisplay();
             }
 
             if (commandData.first == "turn") {
