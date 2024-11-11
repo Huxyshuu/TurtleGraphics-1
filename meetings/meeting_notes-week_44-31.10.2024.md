@@ -18,18 +18,18 @@ In each meeting, you are required to discuss:
 
 ## Summary of works
 
-1. project plan finished
+1. Finished the project plan and commited it to repository
 2. Environment configuration done
-3. Designed the first version main window
+3. Designed the first version of the main window
 
 ## Challenges
 
-1. Getting Qt Creator IDE to work with the repository for everyone and setting up the environment.
+Nothing
 
 ## Actions
 
 1. Xiwei
-- show the trajectory
+    - show the trajectory
 2. Mathias
    - user interface: terminal
 3. Giang
@@ -43,17 +43,13 @@ In each meeting, you are required to discuss:
 
 ## Project status 
 
-Working on the project plan and setting up the Qt environment.
+Working on the basic features of the project.
 
 ## TODOs:
 
-- make the turtle show up
-- Make the turtle move
-  - turtle, input controller
-- Present the trajectory
-  - turtle, input controller
-- get to know the user interface design system
-  - map
-  - terminal block
-- unit testing
+- Display trajectory (Xiwei)
+- Add functionality to terminal (Mathias)
+- Load function (Giang)
+- Display and add functionality to turtle (Hugo)
+- Get familiarity with QtCreator (everyone)
 
