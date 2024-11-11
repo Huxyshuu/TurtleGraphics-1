@@ -35,6 +35,11 @@ public:
      */
     std::pair<std::string, int> parseCommand(const std::string& input);
 
+    /**
+     * @brief Updates the turtles position and rotation into the UI
+     */
+    void updateTurtleUI(Turtle& turtle);
+
 private slots:
     void on_lineEdit_returnPressed();
     void on_uploadButton_clicked();

@@ -53,6 +53,10 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::setTurtle(Turtle *turtle) {
+    turtle_ = turtle;
+}
+
 // Parses input commands from user
 std::pair<std::string, int> MainWindow::parseCommand(const std::string& input) {
     std::istringstream stream(input);
@@ -69,8 +73,9 @@ std::pair<std::string, int> MainWindow::parseCommand(const std::string& input) {
     return {command, value}; // returns just the command without a real value
 }
 
-void MainWindow::setTurtle(Turtle *turtle) {
-    turtle_ = turtle;
+void MainWindow::updateTurtleUI(Turtle& turtle) {
+    ui->label->setText("Current position: (" + QString::number(turtle.getPosition().first) + ", " + QString::number(turtle.getPosition().second) + ")");
+    ui->label_2->setText("Current rotation: " + QString::number(turtle.getRotation()) + "°");
 }
 
 
@@ -112,8 +117,7 @@ void MainWindow::on_lineEdit_returnPressed()
         }
 
         lineEdit->clear();
-
-
+        updateTurtleUI(*turtle_);
     }
 }
 
