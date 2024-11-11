@@ -10,6 +10,12 @@
     <height>505</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
    <string>Turtle Graphics</string>
   </property>
@@ -74,6 +80,9 @@ color: #2E2E2E;</string>
       <height>331</height>
      </rect>
     </property>
+    <property name="acceptDrops">
+     <bool>false</bool>
+    </property>
     <property name="styleSheet">
      <string notr="true">background-color: #FFF;
 border-radius: 10px;
@@ -81,6 +90,9 @@ font: 14px &quot;consolas&quot;;
 min-width: 10em;
 padding: 6px;
 </string>
+    </property>
+    <property name="sizeAdjustPolicy">
+     <enum>QAbstractScrollArea::SizeAdjustPolicy::AdjustToContentsOnFirstShow</enum>
     </property>
     <property name="transformationAnchor">
      <enum>QGraphicsView::ViewportAnchor::AnchorViewCenter</enum>
@@ -115,12 +127,12 @@ color: #2E2E2E;</string>
      <rect>
       <x>320</x>
       <y>60</y>
-      <width>221</width>
+      <width>231</width>
       <height>41</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 11pt &quot;Consolas&quot;; color: #A4A4A4;</string>
+     <string notr="true">font: 10pt &quot;Consolas&quot;; color: #A4A4A4;</string>
     </property>
     <property name="text">
      <string>Current position: (0, 0)</string>
@@ -129,14 +141,14 @@ color: #2E2E2E;</string>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>540</x>
+      <x>560</x>
       <y>60</y>
-      <width>221</width>
+      <width>191</width>
       <height>41</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 11pt &quot;Consolas&quot;; color: #A4A4A4;</string>
+     <string notr="true">font: 10pt &quot;Consolas&quot;; color: #A4A4A4;</string>
     </property>
     <property name="text">
      <string>Current rotation: 0°</string>

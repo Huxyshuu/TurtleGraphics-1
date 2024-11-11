@@ -37,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent)
     // Keep the view from moving or adjusting when the turtle moves
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->graphicsView->setSceneRect(-200, -165, 400, 330);
 
     //create new storage object
     if (storage->getModel()) {
@@ -75,7 +76,7 @@ std::pair<std::string, int> MainWindow::parseCommand(const std::string& input) {
 
 void MainWindow::updateTurtleUI(Turtle& turtle) {
     ui->label->setText("Current position: (" + QString::number(turtle.getPosition().first) + ", " + QString::number(turtle.getPosition().second) + ")");
-    ui->label_2->setText("Current rotation: " + QString::number(turtle.getRotation()) + "°");
+    ui->label_2->setText("Current rotation: " + QString::number(-turtle.getRotation() % 360) + "°");
 }
 
 
