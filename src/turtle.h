@@ -21,10 +21,14 @@ public:
      */
     void turn(int angle);
 
+    std::pair<int, int> getPosition() const;
+    int getRotation() const;
+
 private:
     QPixmap turtlePixmap_;
 
     int currentRotation_ = 0; // [0° - 360°] -> 0° (facing right) and 90° (facing up)
+    std::pair<int, int> currentPosition_ = {0, 0}; // Turtle position as a pair of ints (x, y)
     QGraphicsScene* scene_;
     QGraphicsPathItem* pathItem_;
 };

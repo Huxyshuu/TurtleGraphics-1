@@ -35,6 +35,8 @@ void Turtle::forward(int distance) {
     int dx = (int)(distance * std::cos(radians));
     int dy = (int)(distance * std::sin(radians));
     setPos(x() + dx, y() + dy);
+    currentPosition_.first += dx;
+    currentPosition_.second += dy;
 
     // Paint to the new target point
     QPainterPath path = pathItem_->path();
@@ -56,4 +58,12 @@ void Turtle::turn(int angle) {
     } else {
         setPixmap(turtlePixmap_);
     }
+};
+
+std::pair<int, int> Turtle::getPosition() const {
+    return currentPosition_;
+};
+
+int Turtle::getRotation() const {
+    return currentRotation_;
 };
