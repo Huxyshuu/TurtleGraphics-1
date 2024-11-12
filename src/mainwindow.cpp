@@ -184,7 +184,11 @@ void MainWindow::on_uploadButton_clicked()
 
 void MainWindow::on_radioButton_toggled(bool checked)
 {
-    std::cout << "drawing: " << std::boolalpha << checked << std::endl;
     turtle_->setDrawing(checked);
+    if (checked) {
+        storage->addToHistory("pen down");
+    } else {
+        storage->addToHistory("pen up");
+    }
 }
 
