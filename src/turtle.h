@@ -29,6 +29,7 @@ public:
     void go(int x, int y);
 
     void setDrawing(bool drawing);
+    bool getDrawing() const;
 
     std::pair<int, int> getPosition() const;
     int getRotation() const;

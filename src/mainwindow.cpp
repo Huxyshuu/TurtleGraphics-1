@@ -59,19 +59,21 @@ void MainWindow::setTurtle(Turtle *turtle) {
 }
 
 // Parses input commands from user
-std::pair<std::string, int> MainWindow::parseCommand(const std::string& input) {
+std::pair<std::string, std::string> MainWindow::parseCommand(const std::string& input) {
     std::istringstream stream(input);
     std::string command;
-    int value = 0;
+    std::string arguments;
 
     if (!(stream >> command)) {
-         throw std::invalid_argument("Invalid input");
-    }
-    if (stream >> value) {
-        return {command, value};
+        throw std::invalid_argument("Invalid input");
     }
 
-    return {command, value}; // returns just the command without a real value
+    std::getline(stream, arguments); // Capture the rest of the line as arguments
+    if (!arguments.empty() && arguments[0] == ' ') {
+        arguments.erase(0, 1); // Remove leading space if present
+    }
+
+    return {command, arguments};
 }
 
 void MainWindow::updateTurtleUI(Turtle& turtle) {
@@ -96,38 +98,52 @@ void MainWindow::on_lineEdit_returnPressed()
         }
 
         try {
-            std::pair<std::string, int> commandData = parseCommand(command);
-            std::cout << commandData.first << " " << commandData.second << std::endl;
-            QString str = ( QString::fromStdString(commandData.first) + " " + QString::number(commandData.second) );
+            std::pair<std::string, std::string> commandData = parseCommand(command);
+            QString str = ( QString::fromStdString(commandData.first) + " " + QString::fromStdString(commandData.second) );
 
-            if (commandData.first == "forward") {
-                turtle_->forward(commandData.second);
+            if (commandData.first == "forward" || commandData.first == "turn") {
+                int value = std::stoi(commandData.second);
+                if (commandData.first == "forward") {
+                    turtle_->forward(value);
+                } else {
+                    turtle_->turn(value);
+                }
                 storage->addToHistory(str);
             }
 
-            if (commandData.first == "go") {
-                std::cout << "This go function needs a better parsing to work :(" << std::endl;
+            else if (commandData.first == "go") {
+                std::istringstream argsStream(commandData.second);
+                int x, y;
+                if (argsStream >> x >> y) {
+                    turtle_->go(x, y);
+                    storage->addToHistory(str);
+                } else {
+                    std::cerr << "Invalid arguments for 'go' command\n";
+                }
             }
 
-            if (commandData.first == "pen") {
-                std::cout << "Pen function" << std::endl;
+            else if (commandData.first == "pen") {
+                if (commandData.second == "up" && turtle_->getDrawing()) {
+                    updatingRadioButton_ = true;
+                    turtle_->setDrawing(false);
+                    ui->radioButton->setChecked(false);
+                    updatingRadioButton_ = false;
+                    storage->addToHistory(str);
+                } else if (commandData.second == "down" && !turtle_->getDrawing()) {
+                    updatingRadioButton_ = true;
+                    turtle_->setDrawing(true);
+                    ui->radioButton->setChecked(true);
+                    updatingRadioButton_ = false;
+                    storage->addToHistory(str);
+                }
             }
 
-            if (commandData.first == "pen") {
-                std::cout << "Pen function" << std::endl;
-            }
-
-            if (commandData.first == "help") {
+            else if (commandData.first == "help") {
                 storage->helpDisplay();
             }
 
-            if (commandData.first == "turn") {
-                turtle_->turn(commandData.second);
-                storage->addToHistory(str);
-            }
-
         } catch (const std::invalid_argument& error) {
-            std::cerr << error.what() << std::endl; // typing a string into int causes error
+            std::cerr << "Invalid input! Error: " << error.what() << std::endl; // typing a string into int causes error
         }
 
         lineEdit->clear();
@@ -161,22 +177,21 @@ void MainWindow::on_uploadButton_clicked()
         }
 
         try {
-            std::pair<std::string, int> commandData = parseCommand(command);
-            std::cout << commandData.first << " " << commandData.second << std::endl;
-            QString str = ( QString::fromStdString(commandData.first) + " " + QString::number(commandData.second) );
+            std::pair<std::string, std::string> commandData = parseCommand(command);
+            QString str = ( QString::fromStdString(commandData.first) + " " + QString::fromStdString(commandData.second) );
 
-            if (commandData.first == "forward") {
-                turtle_->forward(commandData.second);
-                storage->addToHistory(str);
-            }
-
-            if (commandData.first == "turn") {
-                turtle_->turn(commandData.second);
+            if (commandData.first == "forward" || commandData.first == "turn") {
+                int value = std::stoi(commandData.second);
+                if (commandData.first == "forward") {
+                    turtle_->forward(value);
+                } else {
+                    turtle_->turn(value);
+                }
                 storage->addToHistory(str);
             }
 
         } catch (const std::invalid_argument& error) {
-            std::cerr << error.what() << std::endl; // typing a string into int causes error
+            std::cerr << "Invalid input! Error: " << error.what() << std::endl; // typing a string into int causes error
         }
     }
     file.close();
@@ -185,10 +200,14 @@ void MainWindow::on_uploadButton_clicked()
 void MainWindow::on_radioButton_toggled(bool checked)
 {
     turtle_->setDrawing(checked);
-    if (checked) {
-        storage->addToHistory("pen down");
-    } else {
-        storage->addToHistory("pen up");
+    if (!updatingRadioButton_) {
+        if (checked) {
+            storage->addToHistory("pen down");
+        } else {
+            storage->addToHistory("pen up");
+        }
     }
+
+    ui->lineEdit->setFocus(); // Focus back on the input field
 }
 

@@ -62,6 +62,13 @@ void Turtle::go(int x, int y) {
     setPos(x, y);
     currentPosition_.first = x;
     currentPosition_.second = y;
+
+    // Draws a line
+    if (drawing_) {
+        QPainterPath path = pathItem_->path();
+        path.lineTo(pos());
+        pathItem_->setPath(path);
+    }
 }
 
 void Turtle::setDrawing(bool drawing) {
@@ -73,6 +80,10 @@ void Turtle::setDrawing(bool drawing) {
         path.moveTo(pos());
         pathItem_->setPath(path);
     }
+}
+
+bool Turtle::getDrawing() const {
+    return drawing_;
 }
 
 std::pair<int, int> Turtle::getPosition() const {
