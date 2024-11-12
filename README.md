@@ -87,5 +87,9 @@ Please go over the *Project Guidelines* for details.
 # TODOs (Date)
 You can create a list of TODOs in this file.
 The recommended format is:
-- Complete the project plan by 31.10.2024
-- 
+- Saving function aka write to a file
+- Downloadable picture of the map
+- Change line color and width
+- Sound (work in progress)
+- Border limit
+- Probably a lot of other cool stuff 
