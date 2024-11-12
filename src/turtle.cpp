@@ -28,8 +28,6 @@ Turtle::Turtle(const QString& imagePath, QGraphicsScene* scene)
 }
 
 void Turtle::forward(int distance) {
-    // Record current point
-    QPointF startPoint = pos();
     // Move in the current direction based on angle
     double radians = qDegreesToRadians((double)(currentRotation_));
     int dx = (int)(distance * std::cos(radians));
@@ -38,19 +36,19 @@ void Turtle::forward(int distance) {
     currentPosition_.first += dx;
     currentPosition_.second += dy;
 
-    // Paint to the new target point
-    QPainterPath path = pathItem_->path();
-    if (path.isEmpty())
-        path.moveTo(startPoint);
-    path.lineTo(pos());
-    pathItem_->setPath(path);
+    // Draws a line
+    if (drawing_) {
+        QPainterPath path = pathItem_->path();
+        path.lineTo(pos());
+        pathItem_->setPath(path);
+    }
 };
 
 void Turtle::turn(int angle) {
     currentRotation_ -= angle;
     setRotation(currentRotation_);
 
-    // Mirror the pixmap if the angle is within 90° < angle < 270°
+    // Mirror the pixmap if the angle is within 90° < angle < 270° (counter-clockwise)
     if ((currentRotation_ % 360 > 90 && currentRotation_ % 360 < 270) ||
         (currentRotation_ % 360 < -90 && currentRotation_ % 360 > -270)) {
 
@@ -59,6 +57,34 @@ void Turtle::turn(int angle) {
         setPixmap(turtlePixmap_);
     }
 };
+
+void Turtle::go(int x, int y) {
+    setPos(x, y);
+    currentPosition_.first = x;
+    currentPosition_.second = y;
+
+    // Draws a line
+    if (drawing_) {
+        QPainterPath path = pathItem_->path();
+        path.lineTo(pos());
+        pathItem_->setPath(path);
+    }
+}
+
+void Turtle::setDrawing(bool drawing) {
+    drawing_ = drawing;
+
+    // Draws a line
+    if (drawing_) {
+        QPainterPath path = pathItem_->path();
+        path.moveTo(pos());
+        pathItem_->setPath(path);
+    }
+}
+
+bool Turtle::getDrawing() const {
+    return drawing_;
+}
 
 std::pair<int, int> Turtle::getPosition() const {
     return currentPosition_;

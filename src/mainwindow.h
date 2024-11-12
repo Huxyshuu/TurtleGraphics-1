@@ -33,7 +33,7 @@ public:
      * @param input string as a std::string reference
      * @return a pair containing the command and the command value (e.g., distance, angle)
      */
-    std::pair<std::string, int> parseCommand(const std::string& input);
+    std::pair<std::string, std::string> parseCommand(const std::string& input);
 
     /**
      * @brief Updates the turtles position and rotation into the UI
@@ -44,11 +44,14 @@ private slots:
     void on_lineEdit_returnPressed();
     void on_uploadButton_clicked();
 
+    void on_radioButton_toggled(bool checked);
+
 private:
     Ui::MainWindow *ui;
     Turtle* turtle_;
     QStringList history;
     QStringList helplist;
     Storage *storage;
+    bool updatingRadioButton_ = false;
 };
 #endif // MAINWINDOW_H
