@@ -4,6 +4,7 @@
 #include <QGraphicsPathItem>
 #include <QPainterPath>
 #include <QtMath> // For qDegreesToRadians
+#include <QTimer>
 
 Turtle::Turtle(const QString& imagePath, QGraphicsScene* scene)
 {
@@ -30,18 +31,20 @@ Turtle::Turtle(const QString& imagePath, QGraphicsScene* scene)
 void Turtle::forward(int distance) {
     // Move in the current direction based on angle
     double radians = qDegreesToRadians((double)(currentRotation_));
-    int dx = (int)(distance * std::cos(radians));
-    int dy = (int)(distance * std::sin(radians));
-    setPos(x() + dx, y() + dy);
-    currentPosition_.first += dx;
-    currentPosition_.second += dy;
+    double delta_x = distance * std::cos(radians);
+    double delta_y = distance * std::sin(radians);
 
-    // Draws a line
-    if (drawing_) {
-        QPainterPath path = pathItem_->path();
-        path.lineTo(pos());
-        pathItem_->setPath(path);
-    }
+    target_x_ = currentPosition_.first + delta_x;
+    target_y_ = currentPosition_.second + delta_y;
+
+    steps_ = static_cast<int>(distance / 3);
+    dx_ = delta_x / steps_;
+    dy_ = delta_y / steps_;
+    currentStep_ = 0;
+
+    moveTimer_ = new QTimer(this);
+    connect(moveTimer_, &QTimer::timeout, this, &Turtle::onMoveStep);
+    moveTimer_->start(200); // move every 200 ms
 };
 
 void Turtle::turn(int angle) {
@@ -68,6 +71,28 @@ void Turtle::go(int x, int y) {
         QPainterPath path = pathItem_->path();
         path.lineTo(pos());
         pathItem_->setPath(path);
+    }
+
+}
+
+// Smoothly move
+void Turtle::onMoveStep() {
+    if (currentStep_ < steps_) {
+        setPos(x() + dx_, y() + dy_);
+        currentPosition_.first += dx_;
+        currentPosition_.second += dy_;
+
+        if (drawing_) {
+            QPainterPath path = pathItem_->path();
+            path.lineTo(pos());
+            pathItem_->setPath(path);
+        }
+
+        currentStep_++;
+    } else {
+        moveTimer_->stop();
+        moveTimer_->deleteLater();
+        Turtle::go(target_x_, target_y_);
     }
 }
 

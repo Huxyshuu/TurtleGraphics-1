@@ -3,9 +3,13 @@
 
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
+#include <QObject>
+#include <QTimer> // For time sleep
 
-class Turtle : public QGraphicsPixmapItem
+
+class Turtle : public QObject, public QGraphicsPixmapItem
 {
+    Q_OBJECT
 public:
     Turtle(const QString& imagePath, QGraphicsScene* scene);
 
@@ -34,6 +38,9 @@ public:
     std::pair<int, int> getPosition() const;
     int getRotation() const;
 
+private slots:
+    void onMoveStep();
+
 private:
     QPixmap turtlePixmap_;
 
@@ -44,6 +51,14 @@ private:
 
     QGraphicsScene* scene_;
     QGraphicsPathItem* pathItem_;
+
+    int dx_;
+    int dy_;
+    int currentStep_;
+    int steps_;
+    double target_x_;
+    double target_y_;
+    QTimer *moveTimer_;
 };
 
 #endif // TURTLE_H
