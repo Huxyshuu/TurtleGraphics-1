@@ -37,14 +37,14 @@ void Turtle::forward(int distance) {
     target_x_ = currentPosition_.first + delta_x;
     target_y_ = currentPosition_.second + delta_y;
 
-    steps_ = static_cast<int>(distance / 3);
+    steps_ = static_cast<int>(distance / 1);
     dx_ = delta_x / steps_;
     dy_ = delta_y / steps_;
     currentStep_ = 0;
 
     moveTimer_ = new QTimer(this);
     connect(moveTimer_, &QTimer::timeout, this, &Turtle::onMoveStep);
-    moveTimer_->start(200); // move every 200 ms
+    moveTimer_->start(50); // move every 200 ms
 };
 
 void Turtle::turn(int angle) {
