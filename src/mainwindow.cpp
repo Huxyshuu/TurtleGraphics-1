@@ -47,6 +47,7 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
     connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::on_uploadButton_clicked);
+    connect(ui->horizontalSlider, &QSlider::valueChanged, this, &MainWindow::updateBrushSize);
 }
 
 MainWindow::~MainWindow()
@@ -211,3 +212,8 @@ void MainWindow::on_radioButton_toggled(bool checked)
     ui->lineEdit->setFocus(); // Focus back on the input field
 }
 
+void MainWindow::updateBrushSize(int value)
+{
+    ui->label_4->setText("Pen size: "+ QString::number(value));
+    turtle_->setBrushSize(value);
+}

@@ -38,6 +38,8 @@ public:
     std::pair<int, int> getPosition() const;
     int getRotation() const;
 
+    void setBrushSize(int value);
+
 private slots:
     void onMoveStep();
 
@@ -59,6 +61,8 @@ private:
     double target_x_;
     double target_y_;
     QTimer *moveTimer_;
+
+    int pensize_;
 };
 
 #endif // TURTLE_H

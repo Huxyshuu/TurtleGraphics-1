@@ -44,7 +44,7 @@ void Turtle::forward(int distance) {
 
     moveTimer_ = new QTimer(this);
     connect(moveTimer_, &QTimer::timeout, this, &Turtle::onMoveStep);
-    moveTimer_->start(80); // move every 80 ms
+    moveTimer_->start(100); // move every 80 ms
 };
 
 void Turtle::turn(int angle) {
@@ -118,3 +118,11 @@ std::pair<int, int> Turtle::getPosition() const {
 int Turtle::getRotation() const {
     return currentRotation_;
 };
+
+void Turtle::setBrushSize(int value){
+    pensize_ = value;
+    pathItem_->setPen(QPen(Qt::black, value));
+    QPixmap scaledPixmap = turtlePixmap_.scaled(10*pensize_, 10*pensize_, Qt::KeepAspectRatio);
+    setPixmap(scaledPixmap);
+    setOffset(turtlePixmap_.width() / -2.0, turtlePixmap_.height() / -2.0);
+}

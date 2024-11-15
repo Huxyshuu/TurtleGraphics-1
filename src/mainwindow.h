@@ -45,6 +45,7 @@ private slots:
     void on_uploadButton_clicked();
 
     void on_radioButton_toggled(bool checked);
+    void updateBrushSize(int value);
 
 private:
     Ui::MainWindow *ui;

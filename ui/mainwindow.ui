@@ -420,6 +420,63 @@ QRadioButton::indicator:unchecked {
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QSlider" name="horizontalSlider">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>40</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>10</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Orientation::Horizontal</enum>
+    </property>
+    <property name="invertedAppearance">
+     <bool>false</bool>
+    </property>
+    <property name="invertedControls">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>20</y>
+      <width>91</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 10pt &quot;Consolas&quot;; color: #A4A4A4;</string>
+    </property>
+    <property name="text">
+     <string>Pen size: 1</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>20</y>
+      <width>91</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 10pt &quot;Consolas&quot;; color: #A4A4A4;</string>
+    </property>
+    <property name="text">
+     <string>Pen color:</string>
+    </property>
+   </widget>
    <zorder>listView</zorder>
    <zorder>lineEdit</zorder>
    <zorder>label</zorder>
@@ -433,6 +490,9 @@ QRadioButton::indicator:unchecked {
    <zorder>pushButton_2</zorder>
    <zorder>label_3</zorder>
    <zorder>radioButton</zorder>
+   <zorder>horizontalSlider</zorder>
+   <zorder>label_4</zorder>
+   <zorder>label_5</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
