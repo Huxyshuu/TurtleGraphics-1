@@ -8,7 +8,7 @@ In each meeting, you are required to discuss:
 4. Deviations and changes to the project plan, if any
 
 
-## Week 45 - Meeting 14.11.2024 14:00
+## Week 46 - Meeting 14.11.2024 16:00
 
 **Participants**: 
 1. Hugo Tamm
@@ -78,6 +78,7 @@ Perfecting the **advanced** features and implementing additional features.
     -> drawing_ = True; turn 90; forward 100
 
 - work on "save file" function: Giang
+  
   - the file should be saved as a txt file with command history
 - Restart function: clear everything in the graphic: Hugo
 - boundary detection: will move to the other side of the graph
