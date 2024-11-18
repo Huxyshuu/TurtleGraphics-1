@@ -5,15 +5,21 @@
 #include <QString>
 #include <QStringListModel>
 
+
 class Storage
 {
   public:
     Storage();
 
     void addToHistory(const QString &line);
+
     QStringList getHistory() const;
+
     QStringListModel* getModel() const;
+
     void helpDisplay();
+
+    void saveImage(const QImage &image, const QString &fileName);
 
   private:
     QStringList history;
