@@ -4,9 +4,6 @@
 #include <QStringList>
 #include <QString>
 #include <QStringListModel>
-#include <QMainWindow>
-#include <QGraphicsPixmapItem>
-#include <QGraphicsScene>
 
 
 class Storage

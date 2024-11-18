@@ -28,8 +28,6 @@ void Storage::helpDisplay() {
 void Storage::saveImage(const QImage &image, const QString &fileName){
 
     if (image.save(fileName)) {
-        QMessageBox::critical(nullptr, QObject::tr("Save error"),
-                              QObject::tr("Image saving failed."));
         addToHistory("Image saved to: " + fileName );
     }
     else {
