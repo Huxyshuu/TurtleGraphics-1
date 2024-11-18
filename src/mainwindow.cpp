@@ -11,6 +11,7 @@
 #include <QTextStream>
 #include "turtle.h"
 #include "storage.h"
+#include <QImage>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -217,3 +218,17 @@ void MainWindow::updateBrushSize(int value)
     ui->label_4->setText("Pen size: "+ QString::number(value));
     turtle_->setBrushSize(value);
 }
+
+
+//save function
+void MainWindow::on_pushButton_2_pressed()
+{
+    //filename is easier to assign here than in the storage
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), "", tr("Images (*.png *.xpm *.jpg)"));
+    if (fileName.isEmpty()) { return; }
+
+    QImage image = ui->graphicsView->grab().toImage();
+
+    storage->saveImage(image, fileName);
+}
+

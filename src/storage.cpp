@@ -1,5 +1,8 @@
 #include "storage.h"
 #include <QStringListModel>
+#include <QImage>
+#include <QFileDialog>
+#include <QMessageBox>
 
 Storage::Storage() : model(new QStringListModel(history)){
     model->setStringList(history); // Initialize the model
@@ -20,4 +23,17 @@ QStringList Storage::getHistory() const{
 
 void Storage::helpDisplay() {
     model->setStringList(helplist);
+}
+
+void Storage::saveImage(const QImage &image, const QString &fileName){
+
+    if (image.save(fileName)) {
+        QMessageBox::critical(nullptr, QObject::tr("Save error"),
+                              QObject::tr("Image saving failed."));
+        addToHistory("Image saved to: " + fileName );
+    }
+    else {
+        QMessageBox::critical(nullptr, QObject::tr("Save error"),
+                              QObject::tr("Image saving failed."));
+    }
 }

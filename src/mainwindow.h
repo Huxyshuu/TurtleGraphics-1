@@ -47,6 +47,8 @@ private slots:
     void on_radioButton_toggled(bool checked);
     void updateBrushSize(int value);
 
+    void on_pushButton_2_pressed();
+
 private:
     Ui::MainWindow *ui;
     Turtle* turtle_;
