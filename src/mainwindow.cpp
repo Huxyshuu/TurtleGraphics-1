@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
     QGraphicsScene *scene = new QGraphicsScene(this);
 
     // Create a Turtle object
-    Turtle *turtle = new Turtle(":/assets/turtle_mid.png", scene);
+    Turtle *turtle = new Turtle(":/assets/turtle_mid.png", scene, ui);
     setTurtle(turtle);
 
     // Add the item to the scene
@@ -77,12 +77,6 @@ std::pair<std::string, std::string> MainWindow::parseCommand(const std::string& 
 
     return {command, arguments};
 }
-
-void MainWindow::updateTurtleUI(Turtle& turtle) {
-    ui->label->setText("Current position: (" + QString::number(turtle.getPosition().first) + ", " + QString::number(turtle.getPosition().second) + ")");
-    ui->label_2->setText("Current rotation: " + QString::number(-turtle.getRotation() % 360) + "°");
-}
-
 
 // Input text bar
 void MainWindow::on_lineEdit_returnPressed()
@@ -154,7 +148,6 @@ void MainWindow::on_lineEdit_returnPressed()
         }
 
         lineEdit->clear();
-        updateTurtleUI(*turtle_);
     }
 }
 
