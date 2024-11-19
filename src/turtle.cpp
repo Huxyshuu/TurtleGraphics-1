@@ -3,13 +3,17 @@
 #include <QGraphicsScene>
 #include <QGraphicsPathItem>
 #include <QPainterPath>
+#include <QGraphicsView>
 #include <QtMath> // For qDegreesToRadians
 #include <QTimer>
+#include "../ui/ui_mainwindow.h"
 
-Turtle::Turtle(const QString& imagePath, QGraphicsScene* scene)
+
+Turtle::Turtle(const QString& imagePath, QGraphicsScene* scene, Ui::MainWindow* ui)
 {
     turtlePixmap_ = QPixmap(imagePath);
     scene_ = scene;
+    ui_ = ui;
 
     // Check if the image loaded successfully
     if (!turtlePixmap_.isNull()) {
@@ -34,17 +38,14 @@ void Turtle::forward(int distance) {
     double delta_x = distance * std::cos(radians);
     double delta_y = distance * std::sin(radians);
 
-    target_x_ = currentPosition_.first + delta_x;
-    target_y_ = currentPosition_.second + delta_y;
-
-    steps_ = static_cast<int>(distance / 1.5); // each move step size is 1.5
-    dx_ = delta_x / steps_;
-    dy_ = delta_y / steps_;
+    steps_ = static_cast<int>(distance / 1); // step size
+    dx_ = (delta_x / steps_); // these have to be double for non-axial movement to work... i'm crying
+    dy_ = (delta_y / steps_);
     currentStep_ = 0;
 
     moveTimer_ = new QTimer(this);
     connect(moveTimer_, &QTimer::timeout, this, &Turtle::onMoveStep);
-    moveTimer_->start(100); // move every 80 ms
+    moveTimer_->start(10); // move every given ms
 };
 
 void Turtle::turn(int angle) {
@@ -59,12 +60,11 @@ void Turtle::turn(int angle) {
     } else {
         setPixmap(turtlePixmap_);
     }
+    updateUI();
 };
 
 void Turtle::go(int x, int y) {
     setPos(x, y);
-    currentPosition_.first = x;
-    currentPosition_.second = y;
 
     // Draws a line
     if (drawing_) {
@@ -72,19 +72,54 @@ void Turtle::go(int x, int y) {
         path.lineTo(pos());
         pathItem_->setPath(path);
     }
-
+    updateUI();
 }
 
 // Smoothly move
 void Turtle::onMoveStep() {
-    if (currentStep_ < steps_) {
-        setPos(x() + dx_, y() + dy_);
-        currentPosition_.first += dx_;
-        currentPosition_.second += dy_;
+    double nextX = x() + dx_;
+    double nextY = y() + dy_;
 
+    qDebug() << "nextX: ( " << x() << " + " << dx_ << " ) and nextY: (" << y() << " + " << dy_ << " )";
+
+    QRectF visibleBounds = ui_->graphicsView->sceneRect();
+
+    target_x_ = nextX;
+    target_y_ = nextY;
+
+    bool crossingBoundary = false;
+
+    // Boundary check and crossing
+    if (nextX > visibleBounds.right()) {
+        target_x_ = visibleBounds.left();
+        crossingBoundary = true;
+    } else if (nextX < visibleBounds.left()) {
+        target_x_ = visibleBounds.right();
+        crossingBoundary = true;
+    }
+
+    if (nextY > visibleBounds.bottom()) {
+        target_y_ = visibleBounds.top();
+        crossingBoundary = true;
+    } else if (nextY < visibleBounds.top()) {
+        target_y_ = visibleBounds.bottom();
+        crossingBoundary = true;
+    }
+
+    if (currentStep_ < steps_) {
+        setPos(target_x_, target_y_);
+
+        // Draw when not crossing the border
         if (drawing_) {
             QPainterPath path = pathItem_->path();
-            path.lineTo(pos());
+
+            if (crossingBoundary) {
+                // Start a new path to avoid connecting across the boundary
+                path.moveTo(pos());
+            } else {
+                // Continue the existing path
+                path.lineTo(pos());
+            }
             pathItem_->setPath(path);
         }
 
@@ -94,6 +129,7 @@ void Turtle::onMoveStep() {
         moveTimer_->deleteLater();
         Turtle::go(target_x_, target_y_);
     }
+    updateUI();
 }
 
 void Turtle::setDrawing(bool drawing) {
@@ -112,7 +148,7 @@ bool Turtle::getDrawing() const {
 }
 
 std::pair<int, int> Turtle::getPosition() const {
-    return currentPosition_;
+    return { x(), y() };
 };
 
 int Turtle::getRotation() const {
@@ -138,4 +174,9 @@ void Turtle::resetTurtle() {
     turn(currentRotation_);
     currentPosition_ = {0, 0};
     currentRotation_ = 0;
+}
+
+void Turtle::updateUI() {
+    ui_->label->setText("Current position: (" + QString::number(x() ,'f', 1) + ", " + QString::number(y() ,'f', 1) + ")");
+    ui_->label_2->setText("Current rotation: " + QString::number(-currentRotation_ % 360) + "°");
 }
