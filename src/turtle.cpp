@@ -126,3 +126,16 @@ void Turtle::setBrushSize(int value){
     // setPixmap(scaledPixmap);
     // setOffset(turtlePixmap_.width() / -2.0, turtlePixmap_.height() / -2.0);
 }
+
+void Turtle::resetTurtle() {
+    // Clears all turtle paths
+    QPainterPath newPath;
+    pathItem_->setPath(newPath);
+    qDebug() << "Turtle reset!";
+
+    // Reset the rotation and position of turtle
+    go(0, 0);
+    turn(currentRotation_);
+    currentPosition_ = {0, 0};
+    currentRotation_ = 0;
+}

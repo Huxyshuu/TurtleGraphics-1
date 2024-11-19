@@ -25,6 +25,11 @@ void Storage::helpDisplay() {
     model->setStringList(helplist);
 }
 
+void Storage::clearHistory() {
+    history.clear();
+    model->setStringList(history);
+}
+
 void Storage::saveImage(const QImage &image, const QString &fileName){
 
     if (image.save(fileName)) {
