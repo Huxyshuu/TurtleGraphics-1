@@ -40,6 +40,11 @@ public:
 
     void setBrushSize(int value);
 
+    /**
+     * @brief Resets the turtle and clears all drawn paths
+     */
+    void resetTurtle();
+
 private slots:
     void onMoveStep();
 

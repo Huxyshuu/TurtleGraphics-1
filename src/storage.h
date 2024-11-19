@@ -19,6 +19,8 @@ class Storage
 
     void helpDisplay();
 
+    void clearHistory();
+
     void saveImage(const QImage &image, const QString &fileName);
 
   private:
@@ -28,7 +30,11 @@ class Storage
                             , "help"
                             , "forward [number]"
                             , "turn [degrees]"
-                            , "More features coming soon!" };
+                            , "go [x] [y]"
+                            , "pen up"
+                            , "pen down"
+                            , "reset"
+                            , "More?" };
 };
 
 #endif // STORAGE_H

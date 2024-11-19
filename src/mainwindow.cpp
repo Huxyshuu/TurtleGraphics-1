@@ -144,6 +144,11 @@ void MainWindow::on_lineEdit_returnPressed()
                 storage->helpDisplay();
             }
 
+            else if (commandData.first == "reset") {
+                turtle_->resetTurtle();
+                storage->clearHistory();
+            }
+
         } catch (const std::invalid_argument& error) {
             std::cerr << "Invalid input! Error: " << error.what() << std::endl; // typing a string into int causes error
         }
