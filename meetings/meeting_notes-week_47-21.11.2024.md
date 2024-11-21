@@ -85,4 +85,7 @@ Perfecting the **advanced** features and implementing additional features.
 - design more shapes saved as a txt file: heart, star, circle, rectangular, triangle, house. Giang
 - change line color and width: Xiwei
 - Do unit tests of each class
+- Gameify the turtle
+- Make a queue for commands
+- run valgrind on the project 
 
