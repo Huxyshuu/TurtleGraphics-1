@@ -17,7 +17,6 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
@@ -46,6 +45,7 @@ private slots:
 
     void on_radioButton_toggled(bool checked);
     void updateBrushSize(int value);
+    void openColorDialog();
 
 private:
     Ui::MainWindow *ui;
@@ -54,5 +54,8 @@ private:
     QStringList helplist;
     Storage *storage;
     bool updatingRadioButton_ = false;
+    QWidget *colorWidget;
+    QColor currentBrushColor;
+
 };
 #endif // MAINWINDOW_H

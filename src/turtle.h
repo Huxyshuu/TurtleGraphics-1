@@ -39,6 +39,7 @@ public:
     int getRotation() const;
 
     void setBrushSize(int value);
+    void updateBrushColor(QColor color);
 
 private slots:
     void onMoveStep();
@@ -63,6 +64,7 @@ private:
     QTimer *moveTimer_;
 
     int pensize_;
+    QColor currentBrushColor_;
 };
 
 #endif // TURTLE_H

@@ -6,5 +6,6 @@
         <file>assets/rocket_big.png</file>
         <file>assets/rocket_mid.png</file>
         <file>assets/rocket_small.png</file>
+        <file>assets/color_bar.png</file>
     </qresource>
 </RCC>

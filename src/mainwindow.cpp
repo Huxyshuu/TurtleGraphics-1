@@ -9,6 +9,13 @@
 #include <sstream>
 #include <QFile>
 #include <QTextStream>
+#include <QPushButton>
+#include <QFileDialog>
+#include <QVBoxLayout>
+#include <QPalette>
+#include <QColorDialog>
+#include <QColor>
+#include <QWidget>
 #include "turtle.h"
 #include "storage.h"
 
@@ -48,6 +55,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::on_uploadButton_clicked);
     connect(ui->horizontalSlider, &QSlider::valueChanged, this, &MainWindow::updateBrushSize);
+
+    // color bar
+    connect(ui->colorButton, &QPushButton::clicked, this, &MainWindow::openColorDialog);
+
+
 }
 
 MainWindow::~MainWindow()
@@ -217,3 +229,16 @@ void MainWindow::updateBrushSize(int value)
     ui->label_4->setText("Pen size: "+ QString::number(value));
     turtle_->setBrushSize(value);
 }
+
+void MainWindow::openColorDialog() {
+    QColor selectedColor = QColorDialog::getColor(currentBrushColor, this, "Please choose color.");
+    if (selectedColor.isValid()) {
+        currentBrushColor = selectedColor;
+        turtle_->updateBrushColor(currentBrushColor);
+        QPushButton *colorButton = qobject_cast<QPushButton*>(sender());
+        if (colorButton) {
+            colorButton->setStyleSheet(QString("background-color: %1;").arg(currentBrushColor.name()));
+        }
+    }
+}
+

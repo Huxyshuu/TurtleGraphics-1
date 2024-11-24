@@ -121,8 +121,18 @@ int Turtle::getRotation() const {
 
 void Turtle::setBrushSize(int value){
     pensize_ = value;
-    pathItem_->setPen(QPen(Qt::black, value));
+    pathItem_->setPen(QPen(currentBrushColor_, value));
     // QPixmap scaledPixmap = turtlePixmap_.scaled(10*pensize_, 10*pensize_, Qt::KeepAspectRatio);
     // setPixmap(scaledPixmap);
     // setOffset(turtlePixmap_.width() / -2.0, turtlePixmap_.height() / -2.0);
+}
+
+void Turtle::updateBrushColor(QColor color){
+    currentBrushColor_ = color;
+    if (pensize_){
+        pathItem_->setPen(QPen(currentBrushColor_, pensize_));
+    }
+    else {
+        pathItem_->setPen(QPen(currentBrushColor_, 1));
+    }
 }

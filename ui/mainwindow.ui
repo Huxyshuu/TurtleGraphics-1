@@ -477,6 +477,19 @@ QRadioButton::indicator:unchecked {
      <string>Pen color:</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="colorButton">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>40</y>
+      <width>56</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <zorder>listView</zorder>
    <zorder>lineEdit</zorder>
    <zorder>label</zorder>
@@ -493,6 +506,7 @@ QRadioButton::indicator:unchecked {
    <zorder>horizontalSlider</zorder>
    <zorder>label_4</zorder>
    <zorder>label_5</zorder>
+   <zorder>colorButton</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
