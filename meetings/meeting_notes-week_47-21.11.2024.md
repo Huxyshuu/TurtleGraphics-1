@@ -8,7 +8,11 @@ In each meeting, you are required to discuss:
 4. Deviations and changes to the project plan, if any
 
 
+<<<<<<< HEAD
 ## Week 46 - Meeting 14.11.2024 16:00
+=======
+## Week 47 - Meeting 21.11.2024 15:00
+>>>>>>> 2e6059a18c083e9872afa1669e43d6873df3c83d
 
 **Participants**: 
 1. Hugo Tamm
@@ -28,6 +32,11 @@ In each meeting, you are required to discuss:
 ## Challenges
 
 - struggling with the sound
+<<<<<<< HEAD
+=======
+- Animation crashing the program when typing another command while first one is still running
+- Colour changing issues
+>>>>>>> 2e6059a18c083e9872afa1669e43d6873df3c83d
 
 ## Actions
 
@@ -35,14 +44,24 @@ In each meeting, you are required to discuss:
    - training the language processor
    - change line color and width
 2. Mathias
+<<<<<<< HEAD
    - Save the picture of the turtle
    - Do unit tests of each class before you integrate it into the project to validate its operation.
+=======
+   - Do unit tests of each class before you integrate it into the project to validate its operation.
+   - Make a block in the map where the turle has to go (Gameify the turtle)
+>>>>>>> 2e6059a18c083e9872afa1669e43d6873df3c83d
 3. Giang
    - work on "save file" function
    - design more shapes saved as a txt file: heart, star, circle, rectangular, triangle, house.
 4. Hugo
+<<<<<<< HEAD
    - Restart function: clear everything in the graphic
    - boundary detection: will move to the other side of the graph
+=======
+   - Make a queue for commands
+   - Get valgrind running 
+>>>>>>> 2e6059a18c083e9872afa1669e43d6873df3c83d
 
 > Please reflect these action decisions in your git commit messages so that 
 > your group members and advisor can follow the progress.
@@ -80,10 +99,19 @@ Perfecting the **advanced** features and implementing additional features.
 - work on "save file" function: Giang
   
   - the file should be saved as a txt file with command history
+<<<<<<< HEAD
 - Restart function: clear everything in the graphic: Hugo
 - boundary detection: will move to the other side of the graph
 - design more shapes saved as a txt file: heart, star, circle, rectangular, triangle, house. Giang
 - Save the picture of the turtle: Mathias
 - change line color and width: Xiwei
 - Do unit tests of each class before you integrate it into the project to validate its operation. In this folder, you can create your own unit test files to validate the operation of your components. It might be a good idea to also take some notes about the tests since you are required to report these in the final report.
+=======
+- design more shapes saved as a txt file: heart, star, circle, rectangular, triangle, house. Giang
+- change line color and width: Xiwei
+- Do unit tests of each class
+- Gameify the turtle
+- Make a queue for commands
+- run valgrind on the project 
+>>>>>>> 2e6059a18c083e9872afa1669e43d6873df3c83d
 

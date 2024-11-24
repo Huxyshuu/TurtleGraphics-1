@@ -5,13 +5,14 @@
 #include <QPixmap>
 #include <QObject>
 #include <QTimer> // For time sleep
+#include "../ui/ui_mainwindow.h"
 
 
 class Turtle : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-    Turtle(const QString& imagePath, QGraphicsScene* scene);
+    Turtle(const QString& imagePath, QGraphicsScene* scene, Ui::MainWindow* ui);
 
     /**
      * @brief Moves the turtle in the facing direction a distance given
@@ -41,6 +42,13 @@ public:
     void setBrushSize(int value);
     void updateBrushColor(QColor color);
 
+    /**
+     * @brief Resets the turtle and clears all drawn paths
+     */
+    void resetTurtle();
+
+    void updateUI();
+
 private slots:
     void onMoveStep();
 
@@ -53,10 +61,11 @@ private:
     bool drawing_ = true;
 
     QGraphicsScene* scene_;
+    Ui::MainWindow* ui_;
     QGraphicsPathItem* pathItem_;
 
-    int dx_;
-    int dy_;
+    double dx_;
+    double dy_;
     int currentStep_;
     int steps_;
     double target_x_;

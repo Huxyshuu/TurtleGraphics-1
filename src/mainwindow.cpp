@@ -18,6 +18,7 @@
 #include <QWidget>
 #include "turtle.h"
 #include "storage.h"
+#include <QImage>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -29,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent)
     QGraphicsScene *scene = new QGraphicsScene(this);
 
     // Create a Turtle object
-    Turtle *turtle = new Turtle(":/assets/turtle_mid.png", scene);
+    Turtle *turtle = new Turtle(":/assets/turtle_mid.png", scene, ui);
     setTurtle(turtle);
 
     // Add the item to the scene
@@ -88,12 +89,6 @@ std::pair<std::string, std::string> MainWindow::parseCommand(const std::string& 
 
     return {command, arguments};
 }
-
-void MainWindow::updateTurtleUI(Turtle& turtle) {
-    ui->label->setText("Current position: (" + QString::number(turtle.getPosition().first) + ", " + QString::number(turtle.getPosition().second) + ")");
-    ui->label_2->setText("Current rotation: " + QString::number(-turtle.getRotation() % 360) + "°");
-}
-
 
 // Input text bar
 void MainWindow::on_lineEdit_returnPressed()
@@ -155,12 +150,16 @@ void MainWindow::on_lineEdit_returnPressed()
                 storage->helpDisplay();
             }
 
+            else if (commandData.first == "reset") {
+                turtle_->resetTurtle();
+                storage->clearHistory();
+            }
+
         } catch (const std::invalid_argument& error) {
             std::cerr << "Invalid input! Error: " << error.what() << std::endl; // typing a string into int causes error
         }
 
         lineEdit->clear();
-        updateTurtleUI(*turtle_);
     }
 }
 
@@ -242,3 +241,14 @@ void MainWindow::openColorDialog() {
     }
 }
 
+//save function
+void MainWindow::on_pushButton_2_pressed()
+{
+    //filename is easier to assign here than in the storage
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), "", tr("Images (*.png *.xpm *.jpg)"));
+    if (fileName.isEmpty()) { return; }
+
+    QImage image = ui->graphicsView->grab().toImage();
+
+    storage->saveImage(image, fileName);
+}

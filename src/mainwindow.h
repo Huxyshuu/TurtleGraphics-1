@@ -47,6 +47,8 @@ private slots:
     void updateBrushSize(int value);
     void openColorDialog();
 
+    void on_pushButton_2_pressed();
+
 private:
     Ui::MainWindow *ui;
     Turtle* turtle_;
