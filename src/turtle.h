@@ -4,6 +4,7 @@
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
 #include <QObject>
+#include <queue>
 #include <QTimer> // For time sleep
 #include "../ui/ui_mainwindow.h"
 
@@ -47,7 +48,21 @@ public:
      */
     void resetTurtle();
 
+    /**
+     * @brief Updates the user interface with the turtle's current position and rotation.
+     */
     void updateUI();
+
+    /**
+     * @brief Adds a command to the command queue for sequential execution.
+     * @param a command function representing the command to enqueue.
+     */
+    void enqueueCommand(const std::function<void()>& command);
+
+    /**
+     * @brief Processes the next command in the queue, if available.
+     */
+    void processNextCommand();
 
 private slots:
     void onMoveStep();
@@ -59,6 +74,9 @@ private:
     std::pair<int, int> currentPosition_ = {0, 0}; // Turtle position as a pair of ints (x, y)
 
     bool drawing_ = true;
+
+    std::queue<std::function<void()>> commandQueue_;
+    bool isProcessingCommand_ = false;
 
     QGraphicsScene* scene_;
     Ui::MainWindow* ui_;

@@ -33,46 +33,56 @@ Turtle::Turtle(const QString& imagePath, QGraphicsScene* scene, Ui::MainWindow* 
 }
 
 void Turtle::forward(int distance) {
-    // Move in the current direction based on angle
-    double radians = qDegreesToRadians((double)(currentRotation_));
-    double delta_x = distance * std::cos(radians);
-    double delta_y = distance * std::sin(radians);
+    enqueueCommand([=]() {
+        // Move in the current direction based on angle
+        double radians = qDegreesToRadians((double)(currentRotation_));
+        double delta_x = distance * std::cos(radians);
+        double delta_y = distance * std::sin(radians);
 
-    steps_ = static_cast<int>(distance / 1); // step size
-    dx_ = (delta_x / steps_); // these have to be double for non-axial movement to work... i'm crying
-    dy_ = (delta_y / steps_);
-    currentStep_ = 0;
+        steps_ = static_cast<int>(distance / 1); // step size
+        dx_ = (delta_x / steps_); // these have to be double for non-axial movement to work... i'm crying
+        dy_ = (delta_y / steps_);
+        currentStep_ = 0;
 
-    moveTimer_ = new QTimer(this);
-    connect(moveTimer_, &QTimer::timeout, this, &Turtle::onMoveStep);
-    moveTimer_->start(10); // move every given ms
-};
+        moveTimer_ = new QTimer(this);
+        connect(moveTimer_, &QTimer::timeout, this, &Turtle::onMoveStep);
+        moveTimer_->start(10); // move every given ms
+    });
+}
 
 void Turtle::turn(int angle) {
-    currentRotation_ -= angle;
-    setRotation(currentRotation_);
+    enqueueCommand([=]() {
+        currentRotation_ -= angle;
+        setRotation(currentRotation_);
 
-    // Mirror the pixmap if the angle is within 90° < angle < 270° (counter-clockwise)
-    if ((currentRotation_ % 360 > 90 && currentRotation_ % 360 < 270) ||
-        (currentRotation_ % 360 < -90 && currentRotation_ % 360 > -270)) {
+        // Mirror the pixmap if the angle is within 90° < angle < 270° (counter-clockwise)
+        if ((currentRotation_ % 360 > 90 && currentRotation_ % 360 < 270) ||
+            (currentRotation_ % 360 < -90 && currentRotation_ % 360 > -270)) {
 
-        setPixmap(turtlePixmap_.transformed(QTransform().scale(1, -1)));
-    } else {
-        setPixmap(turtlePixmap_);
-    }
-    updateUI();
+            setPixmap(turtlePixmap_.transformed(QTransform().scale(1, -1)));
+        } else {
+            setPixmap(turtlePixmap_);
+        }
+        updateUI();
+
+        processNextCommand();
+    });
 };
 
 void Turtle::go(int x, int y) {
-    setPos(x, y);
+    enqueueCommand([=]() {
+        setPos(x, y);
 
-    // Draws a line
-    if (drawing_) {
-        QPainterPath path = pathItem_->path();
-        path.lineTo(pos());
-        pathItem_->setPath(path);
-    }
-    updateUI();
+        // Draws a line
+        if (drawing_) {
+            QPainterPath path = pathItem_->path();
+            path.lineTo(pos());
+            pathItem_->setPath(path);
+        }
+        updateUI();
+
+        processNextCommand();
+    });
 }
 
 // Smoothly move
@@ -80,7 +90,7 @@ void Turtle::onMoveStep() {
     double nextX = x() + dx_;
     double nextY = y() + dy_;
 
-    qDebug() << "nextX: ( " << x() << " + " << dx_ << " ) and nextY: (" << y() << " + " << dy_ << " )";
+    // qDebug() << "nextX: ( " << x() << " + " << dx_ << " ) and nextY: (" << y() << " + " << dy_ << " )";
 
     QRectF visibleBounds = ui_->graphicsView->sceneRect();
 
@@ -127,7 +137,10 @@ void Turtle::onMoveStep() {
     } else {
         moveTimer_->stop();
         moveTimer_->deleteLater();
-        Turtle::go(target_x_, target_y_);
+        moveTimer_ = nullptr;
+        setPos(target_x_, target_y_);
+
+        processNextCommand();
     }
     updateUI();
 }
@@ -189,4 +202,22 @@ void Turtle::resetTurtle() {
 void Turtle::updateUI() {
     ui_->label->setText("Current position: (" + QString::number(x() ,'f', 1) + ", " + QString::number(y() ,'f', 1) + ")");
     ui_->label_2->setText("Current rotation: " + QString::number(-currentRotation_ % 360) + "°");
+}
+
+void Turtle::enqueueCommand(const std::function<void()>& command) {
+    commandQueue_.push(command);
+    if (!isProcessingCommand_) {
+        processNextCommand();
+    }
+}
+
+void Turtle::processNextCommand() {
+    if (!commandQueue_.empty()) {
+        isProcessingCommand_ = true;
+        auto nextCommand = commandQueue_.front();
+        commandQueue_.pop();
+        nextCommand();
+    } else {
+        isProcessingCommand_ = false;
+    }
 }
