@@ -154,6 +154,21 @@ void MainWindow::on_lineEdit_returnPressed()
                 turtle_->resetTurtle();
                 storage->clearHistory();
             }
+            else if (commandData.first == "gameify") {
+                std::cout << "Get the turtle home!" << std::endl;
+                gameflag_ = true;
+                turtle_->gameify();
+                storage->clearHistory();
+                storage->addToHistory("Get the turtle home!");
+            }
+
+            //right now this comes one pace too late
+            if(gameflag_ == true){
+                turtle_->getPosition();
+                if(turtle_->gameWon()){
+                    gameflag_ = false;
+                }
+            }
 
             else if (commandData.first == "star") {
                 turtle_->star();
@@ -286,4 +301,8 @@ void MainWindow::on_pushButton_2_pressed()
     QImage image = ui->graphicsView->grab().toImage();
 
     storage->saveImage(image, fileName);
+}
+
+Ui::MainWindow* MainWindow::getUi() const {
+    return ui;
 }

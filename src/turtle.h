@@ -63,7 +63,6 @@ public:
      * @brief Processes the next command in the queue, if available.
      */
     void processNextCommand();
-
     void star();
     void triangle();
     void square();
@@ -71,6 +70,16 @@ public:
     void circle();
     void cyclohexane();
     void house();
+    /**
+     * @brief gameify turns the turtle graphics to a game. Turtle needs to move to the designated area to win.
+     */
+    void gameify();
+
+    /**
+     * @brief gameWon checks wether the turtle is in the designated area to display a win message.
+     * @return return true if the turtle is in the correct location and false if not.
+     */
+    bool gameWon() const;
 
 private slots:
     void onMoveStep();
@@ -80,7 +89,7 @@ private:
 
     int currentRotation_ = 0; // [0° - 360°] -> 0° (facing right) and 90° (facing up)
     std::pair<int, int> currentPosition_ = {0, 0}; // Turtle position as a pair of ints (x, y)
-
+    std::pair<int, int> randomPos_ = {0, 0};
     bool drawing_ = true;
 
     std::queue<std::function<void()>> commandQueue_;
