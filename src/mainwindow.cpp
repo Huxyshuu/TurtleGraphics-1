@@ -155,6 +155,41 @@ void MainWindow::on_lineEdit_returnPressed()
                 storage->clearHistory();
             }
 
+            else if (commandData.first == "star") {
+                turtle_->star();
+                storage->addToHistory(str);
+            }
+
+            else if (commandData.first == "triangle") {
+                turtle_->triangle();
+                storage->addToHistory(str);
+            }
+
+            else if (commandData.first == "square") {
+                turtle_->square();
+                storage->addToHistory(str); 
+            }
+
+            else if (commandData.first == "rectangle") {
+                turtle_->rectangle();
+                storage->addToHistory(str); 
+            }
+
+            else if (commandData.first == "circle") {
+                turtle_->circle();
+                storage->addToHistory(str); 
+            }
+
+            else if (commandData.first == "cyclohexane") {
+                turtle_->cyclohexane();
+                storage->addToHistory(str); 
+            }
+
+            else if (commandData.first == "house") {
+                turtle_->house();
+                storage->addToHistory(str);
+            }
+
         } catch (const std::invalid_argument& error) {
             std::cerr << "Invalid input! Error: " << error.what() << std::endl; // typing a string into int causes error
         }

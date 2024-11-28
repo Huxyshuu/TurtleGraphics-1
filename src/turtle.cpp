@@ -221,3 +221,81 @@ void Turtle::processNextCommand() {
         isProcessingCommand_ = false;
     }
 }
+
+void Turtle::star() {
+    forward(100);
+    turn(144);
+    forward(100);
+    turn(144);
+    forward(100);
+    turn(144);
+    forward(100);
+    turn(144);
+    forward(100);
+    turn(144);
+}
+
+void Turtle::triangle() {
+    forward(100);
+    turn(120);
+    forward(100);
+    turn(120);
+    forward(100);
+    turn(120);
+}
+
+void Turtle::square() {
+    forward(100);
+    turn(90);
+    forward(100);
+    turn(90);
+    forward(100);
+    turn(90);
+    forward(100);
+    turn(90);
+}
+
+void Turtle::rectangle() {
+    forward(150);
+    turn(90);
+    forward(100);
+    turn(90);
+    forward(150);
+    turn(90);
+    forward(100);
+    turn(90);
+}
+
+void Turtle::circle() {
+    for (int i = 0; i < 180; ++i) {
+        forward(1);
+        turn(2);
+    }
+}
+
+void Turtle::cyclohexane() {
+    for (int i = 0; i < 6; ++i) {
+        forward(50); // Length of each side
+        turn(60);    // Turn angle to create a hexagon
+    }
+}
+
+void Turtle::house() {
+    // Rectangular base
+    for (int i = 0; i < 2; ++i) {
+        forward(100);
+        turn(90);
+        forward(70);
+        turn(90);
+    }
+
+    forward(100);
+    turn(90);
+    forward(70);
+    turn(45);
+
+    // Triangular roof
+    forward(50 * sqrt(2));
+    turn(90);
+    forward(50 * sqrt(2));
+}
