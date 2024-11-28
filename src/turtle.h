@@ -64,6 +64,14 @@ public:
      */
     void processNextCommand();
 
+    void star();
+    void triangle();
+    void square();
+    void rectangle();
+    void circle();
+    void cyclohexane();
+    void house();
+
 private slots:
     void onMoveStep();
 
