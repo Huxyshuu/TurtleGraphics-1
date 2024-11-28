@@ -7,6 +7,9 @@
 #include <QtMath> // For qDegreesToRadians
 #include <QTimer>
 #include "../ui/ui_mainwindow.h"
+#include <QMessageBox>
+
+#include <iostream>
 
 
 Turtle::Turtle(const QString& imagePath, QGraphicsScene* scene, Ui::MainWindow* ui)
@@ -298,4 +301,34 @@ void Turtle::house() {
     forward(50 * sqrt(2));
     turn(90);
     forward(50 * sqrt(2));
+}
+
+void Turtle::gameify() {
+
+    resetTurtle();
+
+    QRectF visibleBounds = ui_->graphicsView->sceneRect();
+
+    int sw = visibleBounds.width() - 5;
+    int sh = visibleBounds.width() - 5;
+
+    int w = arc4random() % sw;
+    int h = arc4random() % sh;
+
+    w -= sw/2;
+    h -= sh/2;
+
+    randomPos_ = {w, h};
+}
+
+bool Turtle::gameWon() const{
+    int tolerance = 5;
+
+    if( (std::abs(randomPos_.first - getPosition().first) <= tolerance) &&
+        (std::abs(randomPos_.second - getPosition().second) <= tolerance) ){
+        QMessageBox::information(nullptr,"", "The turtle made back home!");
+        return true;
+    }
+    std::cout << "target:"<<randomPos_.first << " " << randomPos_.second << " current: " << x() << " " << y() << std::endl;
+    return false;
 }

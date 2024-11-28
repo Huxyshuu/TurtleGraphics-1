@@ -39,6 +39,13 @@ public:
      */
     void updateTurtleUI(Turtle& turtle);
 
+    /**
+     * @brief getUi returns the ui
+     * @return ui
+     */
+    Ui::MainWindow* getUi() const;
+
+
 private slots:
     void on_lineEdit_returnPressed();
     void on_uploadButton_clicked();
@@ -51,6 +58,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    bool gameflag_ = false;
     Turtle* turtle_;
     QStringList history;
     QStringList helplist;
@@ -58,6 +66,5 @@ private:
     bool updatingRadioButton_ = false;
     QWidget *colorWidget;
     QColor currentBrushColor;
-
 };
 #endif // MAINWINDOW_H
