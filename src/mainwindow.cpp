@@ -205,6 +205,16 @@ void MainWindow::on_lineEdit_returnPressed()
                 storage->addToHistory(str);
             }
 
+            else if (commandData.first == "spinning") {
+                turtle_->spinning(std::stoi(commandData.second));
+                storage->addToHistory(str);
+            }
+
+            else if (commandData.first == "random") {
+                turtle_->random();
+                storage->addToHistory(str);
+            }
+
         } catch (const std::invalid_argument& error) {
             std::cerr << "Invalid input! Error: " << error.what() << std::endl; // typing a string into int causes error
         }

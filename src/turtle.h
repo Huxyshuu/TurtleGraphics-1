@@ -70,6 +70,9 @@ public:
     void circle();
     void cyclohexane();
     void house();
+    void spinning(int sides);
+    void random();
+
     /**
      * @brief gameify turns the turtle graphics to a game. Turtle needs to move to the designated area to win.
      */

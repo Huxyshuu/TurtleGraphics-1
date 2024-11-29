@@ -31,7 +31,7 @@ Turtle::Turtle(const QString& imagePath, QGraphicsScene* scene, Ui::MainWindow* 
     }
 
     pathItem_ = new QGraphicsPathItem();
-    pathItem_->setPen(QPen(Qt::black, 2));
+    pathItem_->setPen(QPen(Qt::black, 1));
     scene_->addItem(pathItem_);
 }
 
@@ -42,7 +42,8 @@ void Turtle::forward(int distance) {
         double delta_x = distance * std::cos(radians);
         double delta_y = distance * std::sin(radians);
 
-        steps_ = static_cast<int>(distance / 1); // step size
+        double step_size = 1;
+        steps_ = fmax(1, fmin(10, static_cast<int>(abs(distance) / step_size))); // step size
         dx_ = (delta_x / steps_); // these have to be double for non-axial movement to work... i'm crying
         dy_ = (delta_y / steps_);
         currentStep_ = 0;
@@ -136,8 +137,9 @@ void Turtle::onMoveStep() {
             pathItem_->setPath(path);
         }
 
-        currentStep_++;
-    } else {
+    }
+    currentStep_++;
+    if (currentStep_ >= steps_) { // is last step
         moveTimer_->stop();
         moveTimer_->deleteLater();
         moveTimer_ = nullptr;
@@ -302,6 +304,88 @@ void Turtle::house() {
     turn(90);
     forward(50 * sqrt(2));
 }
+
+void Turtle::spinning(int sides) { 
+    const int steps = 50;  // Number of squares
+    const double edgeFactor = 2.5;
+    for (int step = 1; step <= steps; ++step) {
+        for (int j = 0; j < sides; ++j) {
+            forward(step * edgeFactor);
+            turn(360 / sides);
+        }
+        turn(360.0 / steps); // Slight rotation for spiral effect
+    }
+}
+
+double randomDouble(double l, double r) {
+    return l + (r - l) * (arc4random() % 10000) / 10000.0;
+}
+
+int randomInt(int l, int r) {
+    return l + (r - l) * (arc4random() % 10000) / 10000;
+}
+
+void Turtle::random() {
+    std::vector<std::pair<int, double>> commands(0);
+    const int FORWARD = 1;
+    const int TURN = 2;
+
+    const double angle = randomDouble(90, 180);
+    const int count = randomInt(50, 150);
+    for (int i = 0; i < count; i++) {
+        commands.push_back({FORWARD, 1});
+        commands.push_back({TURN, angle});
+    }
+
+    // Simulate movement to calculate bounds and scaling ratio
+    double currentAngle = 0;
+    double minX = INFINITY, maxX = -INFINITY, minY = INFINITY, maxY = -INFINITY;
+    double centerX = 0, centerY = 0;
+    int pointCount = 0;
+    double tempX = 0, tempY = 0;
+    for (int i = 0; i < commands.size(); i++) {
+        if (commands[i].first == FORWARD) {
+            double dx = commands[i].second * cos(currentAngle * M_PI / 180.0);
+            double dy = commands[i].second * sin(currentAngle * M_PI / 180.0);
+            tempX += dx;
+            tempY += dy;
+            minX = std::min(minX, tempX);
+            maxX = std::max(maxX, tempX);
+            minY = std::min(minY, tempY);
+            maxY = std::max(maxY, tempY);
+            centerX += tempX;
+            centerY += tempY;
+            pointCount++;
+        } else if (commands[i].first == TURN) {
+            currentAngle -= commands[i].second;
+        }
+    }
+    centerX /= pointCount;
+    centerY /= pointCount;
+
+    // Calculate scaling ratio
+    double patternWidth = maxX - minX;
+    double patternHeight = maxY - minY;
+    QRectF visibleBounds = ui_->graphicsView->sceneRect();
+    double screenWidth = visibleBounds.right() - visibleBounds.left();
+    double screenHeight = visibleBounds.bottom() - visibleBounds.top();
+    double ratio = std::min(screenWidth / patternWidth, screenHeight / patternHeight) * 0.8; // 80% of screen
+    
+    // Move to offset center
+    turn(-90);
+    forward(-centerY * ratio);
+    turn(90);
+    forward(-centerX * ratio);
+    
+    // Execute commands
+    for (const auto& cmd : commands) {
+        if (cmd.first == FORWARD) {
+            forward(cmd.second * ratio);
+        } else if (cmd.first == TURN) {        
+            turn(cmd.second);
+        }
+    }
+}    
 
 void Turtle::gameify() {
 
