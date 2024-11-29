@@ -57,6 +57,16 @@ class Storage
                             , "pen up"
                             , "pen down"
                             , "reset"
+                            , "star"
+                            , "triangle"
+                            , "square"
+                            , "rectangle"
+                            , "circle"
+                            , "cyclohexane"
+                            , "house"
+                            , "spinning"
+                            , "random"
+                            , "gameify"
                             , "More?" };
 };
 
