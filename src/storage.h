@@ -49,25 +49,31 @@ class Storage
   private:
     QStringList history;
     QStringListModel *model;
-    QStringList helplist = { "Here are all the available commands:"
-                            , "help"
-                            , "forward [number]"
-                            , "turn [degrees]"
-                            , "go [x] [y]"
-                            , "pen up"
-                            , "pen down"
-                            , "reset"
-                            , "star"
-                            , "triangle"
-                            , "square"
-                            , "rectangle"
-                            , "circle"
-                            , "cyclohexane"
-                            , "house"
-                            , "spinning"
-                            , "random"
-                            , "gameify"
-                            , "More?" };
+    QStringList helplist = {
+        "General Commands:",
+        "  help",
+        "  reset",
+        "  gameify",
+        "  pen up",
+        "  pen down",
+
+        "\nMovement Commands:",
+        "  forward [number]",
+        "  turn [degrees]",
+        "  go [x] [y]",
+
+        "\nDrawing Commands:",
+        "  random",
+        "  spinning [number]",
+        "  star",
+        "  triangle",
+        "  square",
+        "  rectangle",
+        "  circle",
+        "  cyclohexane",
+        "  house"
+    };
+
 };
 
 #endif // STORAGE_H
