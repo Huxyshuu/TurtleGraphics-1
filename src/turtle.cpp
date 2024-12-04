@@ -149,7 +149,7 @@ void Turtle::onMoveStep() {
         setPos(target_x_, target_y_);
 
         if(gameWon()){
-            dot_->setVisible(false);
+            house_->setVisible(false);
         }
 
         processNextCommand();
@@ -198,8 +198,8 @@ void Turtle::updateBrushColor(QColor color){
     }
 }
 
-void Turtle::setDot(QGraphicsEllipseItem *dot) {
-    dot_ = dot;
+void Turtle::setHouse(QGraphicsPixmapItem* house) {
+    house_ = house;
 };
 
 void Turtle::resetTurtle() {
@@ -424,11 +424,11 @@ void Turtle::gameify() {
 
 bool Turtle::gameWon() const{
 
-    int tolerance = 5;
+    int tolerance = 15;
 
     if( (std::abs(randomPos_.first - getPosition().first) <= tolerance) &&
         (std::abs(randomPos_.second - getPosition().second) <= tolerance) ){
-        QMessageBox::information(nullptr,"", "The turtle made back home!");
+        QMessageBox::information(nullptr,"", "The turtle made it back home!");
         return true;
     }
     return false;

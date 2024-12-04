@@ -36,14 +36,18 @@ MainWindow::MainWindow(QWidget *parent)
     // Add the item to the scene
     scene->addItem(turtle);
 
-    // Draws a red circle in the center of the screen
-    QGraphicsEllipseItem *dot = scene->addEllipse(-5, -5, 10, 10, QPen(Qt::red), QBrush(Qt::red));
-    setDot(dot);
-    turtle_->setDot(dot);
-
-    scene->addItem(dot);
-
-    dot_->setVisible(false);
+    QGraphicsPixmapItem* house = new QGraphicsPixmapItem();
+    QPixmap housePixmap(":/assets/house.png");
+    if (!housePixmap.isNull()) {
+        house->setPixmap(housePixmap);
+        house->setOffset(housePixmap.width() / -2.0, housePixmap.height() / -2.0);
+        scene->addItem(house);
+        setHouse(house); // Store it in the house_ pointer
+        house_->setVisible(false); // Initially hidden
+    } else {
+        std::cerr << "Error: Failed to load house.png" << std::endl;
+    }
+    turtle_->setHouse(house);
 
     ui->graphicsView->setScene(scene);
 
@@ -79,8 +83,8 @@ void MainWindow::setTurtle(Turtle *turtle) {
     turtle_ = turtle;
 }
 
-void MainWindow::setDot(QGraphicsEllipseItem *dot) {
-    dot_ = dot;
+void MainWindow::setHouse(QGraphicsPixmapItem* house) {
+    house_ = house;
 };
 
 // Parses input commands from user
@@ -169,8 +173,8 @@ void MainWindow::on_lineEdit_returnPressed()
                 std::cout << "Get the turtle home!" << std::endl;
                 turtle_->gameify();
 
-                dot_->setPos(turtle_->getGamePos().first, turtle_->getGamePos().second);
-                dot_->setVisible(true);
+                house_->setPos(turtle_->getGamePos().first, turtle_->getGamePos().second);
+                house_->setVisible(true);
 
                 storage->clearHistory();
 

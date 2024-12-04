@@ -80,7 +80,7 @@ public:
      */
     void gameify();
 
-    void setDot(QGraphicsEllipseItem *dot);
+    void setHouse(QGraphicsPixmapItem* house);
 
     /**
      * @brief gameWon checks wether the turtle is in the designated area to display a win message.
@@ -106,7 +106,7 @@ private:
     Ui::MainWindow* ui_;
     QGraphicsPathItem* pathItem_;
 
-    QGraphicsEllipseItem* dot_;
+    QGraphicsPixmapItem* house_;
 
     double dx_;
     double dy_;

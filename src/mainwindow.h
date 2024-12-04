@@ -27,7 +27,7 @@ public:
      */
     void setTurtle(Turtle *turtle);
 
-    void setDot(QGraphicsEllipseItem *dot);
+    void setHouse(QGraphicsPixmapItem* house);
 
     /**
      * @brief Parses the input string into a pair <string, int>
@@ -61,7 +61,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     Turtle* turtle_;
-    QGraphicsEllipseItem* dot_;
+    QGraphicsPixmapItem* house_ = nullptr;
     QStringList history;
     QStringList helplist;
     Storage *storage;
