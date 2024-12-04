@@ -38,7 +38,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Draws a red circle in the center of the screen
     QGraphicsEllipseItem *dot = scene->addEllipse(-5, -5, 10, 10, QPen(Qt::red), QBrush(Qt::red));
+    setDot(dot);
+    turtle_->setDot(dot);
+
     scene->addItem(dot);
+
+    dot_->setVisible(false);
 
     ui->graphicsView->setScene(scene);
 
@@ -71,6 +76,10 @@ MainWindow::~MainWindow()
 void MainWindow::setTurtle(Turtle *turtle) {
     turtle_ = turtle;
 }
+
+void MainWindow::setDot(QGraphicsEllipseItem *dot) {
+    dot_ = dot;
+};
 
 // Parses input commands from user
 std::pair<std::string, std::string> MainWindow::parseCommand(const std::string& input) {
@@ -156,18 +165,20 @@ void MainWindow::on_lineEdit_returnPressed()
             }
             else if (commandData.first == "gameify") {
                 std::cout << "Get the turtle home!" << std::endl;
-                gameflag_ = true;
                 turtle_->gameify();
-                storage->clearHistory();
-                storage->addToHistory("Get the turtle home!");
-            }
 
-            //right now this comes one pace too late
-            if(gameflag_ == true){
-                turtle_->getPosition();
-                if(turtle_->gameWon()){
-                    gameflag_ = false;
-                }
+                dot_->setPos(turtle_->getGamePos().first, turtle_->getGamePos().second);
+                dot_->setVisible(true);
+
+                storage->clearHistory();
+
+                // Format the coordinates into the string
+                QString coordinates = QString("(%1, %2)")
+                  .arg(turtle_->getGamePos().first)
+                  .arg(turtle_->getGamePos().second);
+
+                storage->addToHistory(coordinates);
+                storage->addToHistory("Get the turtle home!");
             }
 
             else if (commandData.first == "star") {

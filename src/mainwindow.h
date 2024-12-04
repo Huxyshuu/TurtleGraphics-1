@@ -27,6 +27,8 @@ public:
      */
     void setTurtle(Turtle *turtle);
 
+    void setDot(QGraphicsEllipseItem *dot);
+
     /**
      * @brief Parses the input string into a pair <string, int>
      * @param input string as a std::string reference
@@ -58,8 +60,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    bool gameflag_ = false;
     Turtle* turtle_;
+    QGraphicsEllipseItem* dot_;
     QStringList history;
     QStringList helplist;
     Storage *storage;
