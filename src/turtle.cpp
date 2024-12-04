@@ -8,6 +8,7 @@
 #include <QTimer>
 #include "../ui/ui_mainwindow.h"
 #include <QMessageBox>
+#include <cstdlib>
 
 #include <iostream>
 
@@ -52,6 +53,8 @@ void Turtle::forward(int distance) {
         connect(moveTimer_, &QTimer::timeout, this, &Turtle::onMoveStep);
         moveTimer_->start(10); // move every given ms
     });
+
+    qDebug() << "Done now!";
 }
 
 void Turtle::turn(int angle) {
@@ -145,6 +148,10 @@ void Turtle::onMoveStep() {
         moveTimer_ = nullptr;
         setPos(target_x_, target_y_);
 
+        if(gameWon()){
+            house_->setVisible(false);
+        }
+
         processNextCommand();
     }
     updateUI();
@@ -190,6 +197,10 @@ void Turtle::updateBrushColor(QColor color){
         pathItem_->setPen(QPen(currentBrushColor_, 1));
     }
 }
+
+void Turtle::setHouse(QGraphicsPixmapItem* house) {
+    house_ = house;
+};
 
 void Turtle::resetTurtle() {
     // Clears all turtle paths
@@ -318,11 +329,11 @@ void Turtle::spinning(int sides) {
 }
 
 double randomDouble(double l, double r) {
-    return l + (r - l) * (arc4random() % 10000) / 10000.0;
+    return l + (r - l) * (std::rand() % 10000) / 10000.0;
 }
 
 int randomInt(int l, int r) {
-    return l + (r - l) * (arc4random() % 10000) / 10000;
+    return l + (r - l) * (std::rand() % 10000) / 10000;
 }
 
 void Turtle::random() {
@@ -385,7 +396,11 @@ void Turtle::random() {
             turn(cmd.second);
         }
     }
-}    
+}
+
+std::pair<int, int> Turtle::getGamePos() {
+    return randomPos_;
+};
 
 void Turtle::gameify() {
 
@@ -393,26 +408,28 @@ void Turtle::gameify() {
 
     QRectF visibleBounds = ui_->graphicsView->sceneRect();
 
-    int sw = visibleBounds.width() - 5;
-    int sh = visibleBounds.width() - 5;
+    int sw = visibleBounds.width() - 10;
+    int sh = visibleBounds.height() - 15;
 
-    int w = arc4random() % sw;
-    int h = arc4random() % sh;
+    int w = std::rand() % sw;
+    int h = std::rand() % sh;
 
     w -= sw/2;
     h -= sh/2;
 
     randomPos_ = {w, h};
+
+    std::cout << "target:"<<randomPos_.first << " " << randomPos_.second << " current: " << x() << " " << y() << std::endl;
 }
 
 bool Turtle::gameWon() const{
-    int tolerance = 5;
+
+    int tolerance = 15;
 
     if( (std::abs(randomPos_.first - getPosition().first) <= tolerance) &&
         (std::abs(randomPos_.second - getPosition().second) <= tolerance) ){
-        QMessageBox::information(nullptr,"", "The turtle made back home!");
+        QMessageBox::information(nullptr,"", "The turtle made it back home!");
         return true;
     }
-    std::cout << "target:"<<randomPos_.first << " " << randomPos_.second << " current: " << x() << " " << y() << std::endl;
     return false;
 }
