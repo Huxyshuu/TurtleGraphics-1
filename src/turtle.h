@@ -73,10 +73,14 @@ public:
     void spinning(int sides);
     void random();
 
+    std::pair<int, int> getGamePos();
+
     /**
      * @brief gameify turns the turtle graphics to a game. Turtle needs to move to the designated area to win.
      */
     void gameify();
+
+    void setHouse(QGraphicsPixmapItem* house);
 
     /**
      * @brief gameWon checks wether the turtle is in the designated area to display a win message.
@@ -101,6 +105,8 @@ private:
     QGraphicsScene* scene_;
     Ui::MainWindow* ui_;
     QGraphicsPathItem* pathItem_;
+
+    QGraphicsPixmapItem* house_;
 
     double dx_;
     double dy_;

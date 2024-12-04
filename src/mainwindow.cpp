@@ -36,9 +36,18 @@ MainWindow::MainWindow(QWidget *parent)
     // Add the item to the scene
     scene->addItem(turtle);
 
-    // Draws a red circle in the center of the screen
-    QGraphicsEllipseItem *dot = scene->addEllipse(-5, -5, 10, 10, QPen(Qt::red), QBrush(Qt::red));
-    scene->addItem(dot);
+    QGraphicsPixmapItem* house = new QGraphicsPixmapItem();
+    QPixmap housePixmap(":/assets/house.png");
+    if (!housePixmap.isNull()) {
+        house->setPixmap(housePixmap);
+        house->setOffset(housePixmap.width() / -2.0, housePixmap.height() / -2.0);
+        scene->addItem(house);
+        setHouse(house); // Store it in the house_ pointer
+        house_->setVisible(false); // Initially hidden
+    } else {
+        std::cerr << "Error: Failed to load house.png" << std::endl;
+    }
+    turtle_->setHouse(house);
 
     ui->graphicsView->setScene(scene);
 
@@ -60,6 +69,8 @@ MainWindow::MainWindow(QWidget *parent)
     // color bar
     connect(ui->colorButton, &QPushButton::clicked, this, &MainWindow::openColorDialog);
 
+    storage->addToHistory("Type 'help' for commands");
+    ui->lineEdit->setFocus();
 
 }
 
@@ -71,6 +82,10 @@ MainWindow::~MainWindow()
 void MainWindow::setTurtle(Turtle *turtle) {
     turtle_ = turtle;
 }
+
+void MainWindow::setHouse(QGraphicsPixmapItem* house) {
+    house_ = house;
+};
 
 // Parses input commands from user
 std::pair<std::string, std::string> MainWindow::parseCommand(const std::string& input) {
@@ -156,18 +171,20 @@ void MainWindow::on_lineEdit_returnPressed()
             }
             else if (commandData.first == "gameify") {
                 std::cout << "Get the turtle home!" << std::endl;
-                gameflag_ = true;
                 turtle_->gameify();
-                storage->clearHistory();
-                storage->addToHistory("Get the turtle home!");
-            }
 
-            //right now this comes one pace too late
-            if(gameflag_ == true){
-                turtle_->getPosition();
-                if(turtle_->gameWon()){
-                    gameflag_ = false;
-                }
+                house_->setPos(turtle_->getGamePos().first, turtle_->getGamePos().second);
+                house_->setVisible(true);
+
+                storage->clearHistory();
+
+                // Format the coordinates into the string
+                QString coordinates = QString("(%1, %2)")
+                  .arg(turtle_->getGamePos().first)
+                  .arg(turtle_->getGamePos().second);
+
+                storage->addToHistory(coordinates);
+                storage->addToHistory("Get the turtle home!");
             }
 
             else if (commandData.first == "star") {
