@@ -48,4 +48,4 @@ Writing the final documentation
 
 - run valgrind on the project 
 - Finish documentation
-
+- Polish the code and add doxygen comments
