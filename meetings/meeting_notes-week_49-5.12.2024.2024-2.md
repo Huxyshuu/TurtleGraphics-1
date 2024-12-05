@@ -33,6 +33,7 @@ In each meeting, you are required to discuss:
    - Write testing part of the documentation
 3. Giang
    - Write instruction part of the documentation
+   - Copy project plan for the overview
 
 4. Hugo
    - Write testing part of the documentation
