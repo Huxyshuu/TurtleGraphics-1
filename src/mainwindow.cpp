@@ -68,12 +68,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     // color bar
     connect(ui->colorButton, &QPushButton::clicked, this, &MainWindow::openColorDialog);
-    ui->colorButton->setStyleSheet(QString("background-color: #000000;").arg(currentBrushColor.name()));
+    ui->colorButton->setStyleSheet(QString("background-color: #000000;"));
 
     storage->addToHistory("Type 'help' for commands");
     ui->lineEdit->setFocus();
 
-    QPixmap pixmap("://assets/image.png");
+    QPixmap pixmap(":/assets/image.png");
     QIcon ButtonIcon(pixmap);
     ui->imageButton->setIcon(ButtonIcon);
     ui->imageButton->setIconSize(pixmap.rect().size());

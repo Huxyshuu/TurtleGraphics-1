@@ -79,7 +79,7 @@ QScrollBar::left-arrow:horizontal, QScrollBar::right-arrow:horizontal {
      <enum>Qt::ScrollBarPolicy::ScrollBarAsNeeded</enum>
     </property>
     <property name="horizontalScrollBarPolicy">
-     <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+     <enum>Qt::ScrollBarPolicy::ScrollBarAsNeeded</enum>
     </property>
     <property name="editTriggers">
      <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
@@ -124,10 +124,10 @@ padding: 6px;
 </string>
     </property>
     <property name="sizeAdjustPolicy">
-     <enum>QAbstractScrollArea::SizeAdjustPolicy::AdjustToContentsOnFirstShow</enum>
+     <enum>QAbstractScrollArea::SizeAdjustPolicy::AdjustIgnored</enum>
     </property>
     <property name="transformationAnchor">
-     <enum>QGraphicsView::ViewportAnchor::AnchorViewCenter</enum>
+     <enum>QGraphicsView::ViewportAnchor::NoAnchor</enum>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit">
@@ -185,9 +185,6 @@ color: #2E2E2E;</string>
     <property name="text">
      <string>Current rotation: 0°</string>
     </property>
-    <property name="alignment">
-     <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
-    </property>
    </widget>
    <widget class="QFrame" name="TopLeftCorner">
     <property name="geometry">
@@ -208,10 +205,7 @@ border-top-left-radius: 10px;
 </string>
     </property>
     <property name="frameShape">
-     <enum>QFrame::Shape::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Shadow::Raised</enum>
+     <enum>QFrame::Shape::NoFrame</enum>
     </property>
    </widget>
    <widget class="QFrame" name="TopRightCorner">
@@ -233,10 +227,7 @@ border-top-right-radius: 10px;
 </string>
     </property>
     <property name="frameShape">
-     <enum>QFrame::Shape::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Shadow::Raised</enum>
+     <enum>QFrame::Shape::NoFrame</enum>
     </property>
    </widget>
    <widget class="QFrame" name="BottomRightCorner">
@@ -258,10 +249,7 @@ border-bottom-right-radius: 10px;
 </string>
     </property>
     <property name="frameShape">
-     <enum>QFrame::Shape::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Shadow::Raised</enum>
+     <enum>QFrame::Shape::NoFrame</enum>
     </property>
    </widget>
    <widget class="QFrame" name="BottomLeftCorner">
@@ -283,10 +271,7 @@ border-bottom-left-radius: 10px;
 </string>
     </property>
     <property name="frameShape">
-     <enum>QFrame::Shape::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Shadow::Raised</enum>
+     <enum>QFrame::Shape::NoFrame</enum>
     </property>
    </widget>
    <widget class="QPushButton" name="loadButton">
@@ -373,9 +358,6 @@ QPushButton:hover {
     </property>
     <property name="text">
      <string>Drawing:</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
     </property>
    </widget>
    <widget class="QRadioButton" name="radioButton">
@@ -464,7 +446,7 @@ QRadioButton::indicator:unchecked {
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>550</x>
+      <x>540</x>
       <y>20</y>
       <width>91</width>
       <height>21</height>
@@ -480,7 +462,7 @@ QRadioButton::indicator:unchecked {
    <widget class="QPushButton" name="colorButton">
     <property name="geometry">
      <rect>
-      <x>550</x>
+      <x>540</x>
       <y>40</y>
       <width>56</width>
       <height>18</height>
@@ -523,9 +505,9 @@ QPushButton:hover {
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>650</x>
+      <x>640</x>
       <y>20</y>
-      <width>71</width>
+      <width>81</width>
       <height>21</height>
      </rect>
     </property>
@@ -534,6 +516,9 @@ QPushButton:hover {
     </property>
     <property name="text">
      <string>Save Image</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
     </property>
    </widget>
    <zorder>listView</zorder>
