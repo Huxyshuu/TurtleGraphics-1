@@ -54,6 +54,8 @@ public:
      */
     Ui::MainWindow* getUi() const;
 
+    void executeCommand(std::string& command);
+
 
 private slots:
     void on_lineEdit_returnPressed();

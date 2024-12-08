@@ -113,6 +113,130 @@ std::pair<std::string, std::string> MainWindow::parseCommand(const std::string& 
     return {command, arguments};
 }
 
+void MainWindow::executeCommand(std::string& command) {
+    // Makes all commands lowercase, so user doesn't have to worry about
+    // case-sensitivty
+    for (auto& c : command) {
+        c = tolower(c);
+    }
+
+    try {
+        std::pair<std::string, std::string> commandData = parseCommand(command);
+        QString str = ( QString::fromStdString(commandData.first) + " " + QString::fromStdString(commandData.second) );
+
+        if (commandData.first == "forward" || commandData.first == "turn") {
+            int value = std::stoi(commandData.second);
+            if (commandData.first == "forward") {
+                turtle_->forward(value);
+            } else {
+                turtle_->turn(value);
+            }
+            storage->addToHistory(str);
+        }
+
+        else if (commandData.first == "go") {
+            std::istringstream argsStream(commandData.second);
+            int x, y;
+            if (argsStream >> x >> y) {
+                turtle_->go(x, y);
+                storage->addToHistory(str);
+            } else {
+                std::cerr << "Invalid arguments for 'go' command\n";
+            }
+        }
+
+        else if (commandData.first == "pen") {
+            if (commandData.second == "up" && turtle_->getDrawing()) {
+                updatingRadioButton_ = true;
+                turtle_->setDrawing(false);
+                ui->radioButton->setChecked(false);
+                updatingRadioButton_ = false;
+                storage->addToHistory(str);
+            } else if (commandData.second == "down" && !turtle_->getDrawing()) {
+                updatingRadioButton_ = true;
+                turtle_->setDrawing(true);
+                ui->radioButton->setChecked(true);
+                updatingRadioButton_ = false;
+                storage->addToHistory(str);
+            }
+        }
+
+        else if (commandData.first == "help") {
+            storage->helpDisplay();
+        }
+
+        else if (commandData.first == "reset") {
+            turtle_->resetTurtle();
+            storage->clearHistory();
+        }
+        else if (commandData.first == "gameify") {
+            std::cout << "Get the turtle home!" << std::endl;
+            turtle_->gameify();
+
+            house_->setPos(turtle_->getGamePos().first, turtle_->getGamePos().second);
+            house_->setVisible(true);
+
+            storage->clearHistory();
+
+            // Format the coordinates into the string
+            QString coordinates = QString("(%1, %2)")
+                                      .arg(turtle_->getGamePos().first)
+                                      .arg(turtle_->getGamePos().second);
+
+            storage->addToHistory(coordinates);
+            storage->addToHistory("Get the turtle home!");
+        }
+
+        else if (commandData.first == "star") {
+            turtle_->star();
+            storage->addToHistory(str);
+        }
+
+        else if (commandData.first == "triangle") {
+            turtle_->triangle();
+            storage->addToHistory(str);
+        }
+
+        else if (commandData.first == "square") {
+            turtle_->square();
+            storage->addToHistory(str);
+        }
+
+        else if (commandData.first == "rectangle") {
+            turtle_->rectangle();
+            storage->addToHistory(str);
+        }
+
+        else if (commandData.first == "circle") {
+            turtle_->circle();
+            storage->addToHistory(str);
+        }
+
+        else if (commandData.first == "cyclohexane") {
+            turtle_->cyclohexane();
+            storage->addToHistory(str);
+        }
+
+        else if (commandData.first == "house") {
+            turtle_->house();
+            storage->addToHistory(str);
+        }
+
+        else if (commandData.first == "spinning") {
+            turtle_->spinning(std::stoi(commandData.second));
+            storage->addToHistory(str);
+        }
+
+        else if (commandData.first == "random") {
+            turtle_->random();
+            storage->addToHistory(str);
+        }
+
+    } catch (const std::invalid_argument& error) {
+        std::cerr << "Invalid input! Error: " << error.what() << std::endl; // typing a string into int causes error
+    }
+};
+
 // Input text bar
 void MainWindow::on_lineEdit_returnPressed()
 {
@@ -122,136 +246,14 @@ void MainWindow::on_lineEdit_returnPressed()
 
         std::string command = input.toStdString();
 
-        // Makes all commands lowercase, so user doesn't have to worry about
-        // case-sensitivty
-        for (auto& c : command) {
-            c = tolower(c);
-        }
-
-        try {
-            std::pair<std::string, std::string> commandData = parseCommand(command);
-            QString str = ( QString::fromStdString(commandData.first) + " " + QString::fromStdString(commandData.second) );
-
-            if (commandData.first == "forward" || commandData.first == "turn") {
-                int value = std::stoi(commandData.second);
-                if (commandData.first == "forward") {
-                    turtle_->forward(value);
-                } else {
-                    turtle_->turn(value);
-                }
-                storage->addToHistory(str);
-            }
-
-            else if (commandData.first == "go") {
-                std::istringstream argsStream(commandData.second);
-                int x, y;
-                if (argsStream >> x >> y) {
-                    turtle_->go(x, y);
-                    storage->addToHistory(str);
-                } else {
-                    std::cerr << "Invalid arguments for 'go' command\n";
-                }
-            }
-
-            else if (commandData.first == "pen") {
-                if (commandData.second == "up" && turtle_->getDrawing()) {
-                    updatingRadioButton_ = true;
-                    turtle_->setDrawing(false);
-                    ui->radioButton->setChecked(false);
-                    updatingRadioButton_ = false;
-                    storage->addToHistory(str);
-                } else if (commandData.second == "down" && !turtle_->getDrawing()) {
-                    updatingRadioButton_ = true;
-                    turtle_->setDrawing(true);
-                    ui->radioButton->setChecked(true);
-                    updatingRadioButton_ = false;
-                    storage->addToHistory(str);
-                }
-            }
-
-            else if (commandData.first == "help") {
-                storage->helpDisplay();
-            }
-
-            else if (commandData.first == "reset") {
-                turtle_->resetTurtle();
-                storage->clearHistory();
-            }
-            else if (commandData.first == "gameify") {
-                std::cout << "Get the turtle home!" << std::endl;
-                turtle_->gameify();
-
-                house_->setPos(turtle_->getGamePos().first, turtle_->getGamePos().second);
-                house_->setVisible(true);
-
-                storage->clearHistory();
-
-                // Format the coordinates into the string
-                QString coordinates = QString("(%1, %2)")
-                  .arg(turtle_->getGamePos().first)
-                  .arg(turtle_->getGamePos().second);
-
-                storage->addToHistory(coordinates);
-                storage->addToHistory("Get the turtle home!");
-            }
-
-            else if (commandData.first == "star") {
-                turtle_->star();
-                storage->addToHistory(str);
-            }
-
-            else if (commandData.first == "triangle") {
-                turtle_->triangle();
-                storage->addToHistory(str);
-            }
-
-            else if (commandData.first == "square") {
-                turtle_->square();
-                storage->addToHistory(str); 
-            }
-
-            else if (commandData.first == "rectangle") {
-                turtle_->rectangle();
-                storage->addToHistory(str); 
-            }
-
-            else if (commandData.first == "circle") {
-                turtle_->circle();
-                storage->addToHistory(str); 
-            }
-
-            else if (commandData.first == "cyclohexane") {
-                turtle_->cyclohexane();
-                storage->addToHistory(str); 
-            }
-
-            else if (commandData.first == "house") {
-                turtle_->house();
-                storage->addToHistory(str);
-            }
-
-            else if (commandData.first == "spinning") {
-                turtle_->spinning(std::stoi(commandData.second));
-                storage->addToHistory(str);
-            }
-
-            else if (commandData.first == "random") {
-                turtle_->random();
-                storage->addToHistory(str);
-            }
-
-        } catch (const std::invalid_argument& error) {
-            std::cerr << "Invalid input! Error: " << error.what() << std::endl; // typing a string into int causes error
-        }
+        executeCommand(command);
 
         lineEdit->clear();
     }
 }
 
-// Upload file
 void MainWindow::on_loadButton_clicked()
 {
-    // This whole function should probably be moved to the storage.cpp/h according to the initial plan?
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Command File"), "", tr("Text Files (*.txt)"));
     if (fileName.isEmpty())
         return;
@@ -267,29 +269,7 @@ void MainWindow::on_loadButton_clicked()
         QString line = in.readLine();
         std::string command = line.toStdString();
 
-        // Makes all commands lowercase, so user doesn't have to worry about
-        // case-sensitivty
-        for (auto& c : command) {
-            c = tolower(c);
-        }
-
-        try {
-            std::pair<std::string, std::string> commandData = parseCommand(command);
-            QString str = ( QString::fromStdString(commandData.first) + " " + QString::fromStdString(commandData.second) );
-
-            if (commandData.first == "forward" || commandData.first == "turn") {
-                int value = std::stoi(commandData.second);
-                if (commandData.first == "forward") {
-                    turtle_->forward(value);
-                } else {
-                    turtle_->turn(value);
-                }
-                storage->addToHistory(str);
-            }
-
-        } catch (const std::invalid_argument& error) {
-            std::cerr << "Invalid input! Error: " << error.what() << std::endl; // typing a string into int causes error
-        }
+        executeCommand(command);
     }
     file.close();
 }
@@ -343,7 +323,8 @@ void MainWindow::on_saveStateButton_clicked()
     QTextStream out(&file);
 
     QStringList history = storage->getHistory();
-    for (const QString &entry : history) {
+    for (int i = history.size() - 1; i >= 0; --i) { // Iterate in reverse order
+        const QString &entry = history.at(i);
         // Skip lines containing "saved" or "help"
         if (!entry.contains("saved", Qt::CaseInsensitive) &&
             !entry.contains("help", Qt::CaseInsensitive)) {
@@ -353,11 +334,6 @@ void MainWindow::on_saveStateButton_clicked()
 
     file.close();
     storage->addToHistory("Game state saved to: " + fileName );
-}
-
-
-Ui::MainWindow* MainWindow::getUi() const {
-    return ui;
 }
 
 void MainWindow::on_imageButton_clicked()
@@ -374,5 +350,9 @@ void MainWindow::on_imageButton_clicked()
         QMessageBox::critical(nullptr, QObject::tr("Save error"),
                               QObject::tr("Saving failed."));
     }
+}
+
+Ui::MainWindow* MainWindow::getUi() const {
+    return ui;
 }
 
