@@ -8,6 +8,10 @@ Storage::Storage() : model(new QStringListModel(history)){
     model->setStringList(history); // Initialize the model
 }
 
+Storage::~Storage() {
+    delete model;
+};
+
 void Storage::addToHistory(const QString &line) {
     history.prepend(line);
     model->setStringList(history);

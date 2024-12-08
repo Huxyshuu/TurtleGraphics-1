@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "../ui/ui_mainwindow.h"
+#include "turtle.h"
+#include "storage.h"
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
 #include <QPixmap>
@@ -16,8 +18,6 @@
 #include <QColorDialog>
 #include <QColor>
 #include <QWidget>
-#include "turtle.h"
-#include "storage.h"
 #include <QImage>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -28,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     QGraphicsScene *scene = new QGraphicsScene(this);
+    scene_ = scene;
 
     // Create a Turtle object
     Turtle *turtle = new Turtle(":/assets/turtle_mid.png", scene, ui);
@@ -77,6 +78,9 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete storage;
+    delete house_;
+    delete turtle_;
 }
 
 void MainWindow::setTurtle(Turtle *turtle) {

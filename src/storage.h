@@ -5,13 +5,13 @@
 #include <QString>
 #include <QStringListModel>
 
-
 class Storage
 {
   public:
     Storage();
+    ~Storage();
 
-      /**
+    /**
      * @brief addToHistory adds user typed commands to a list
      * @param line is the user given string that gets added to history
      */
