@@ -39,13 +39,6 @@ class Storage
      */
     void clearHistory();
 
-    /**
-     * @brief saveImage saves the image that the turtle has drawn
-     * @param image is the image that we want to save
-     * @param fileName is user given name for the image
-     */
-    void saveImage(const QImage &image, const QString &fileName);
-
   private:
     QStringList history;
     QStringListModel *model;
@@ -63,15 +56,15 @@ class Storage
         "  go [x] [y]",
 
         "\nDrawing Commands:",
-        "  random",
-        "  spinning [number]",
-        "  star",
+        "  house"
         "  triangle",
         "  square",
         "  rectangle",
         "  circle",
+        "  star",
         "  cyclohexane",
-        "  house"
+        "  random",
+        "  spinning [number]",
     };
 
 };

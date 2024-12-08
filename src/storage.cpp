@@ -33,14 +33,3 @@ void Storage::clearHistory() {
     history.clear();
     model->setStringList(history);
 }
-
-void Storage::saveImage(const QImage &image, const QString &fileName){
-
-    if (image.save(fileName)) {
-        addToHistory("Image saved to: " + fileName );
-    }
-    else {
-        QMessageBox::critical(nullptr, QObject::tr("Save error"),
-                              QObject::tr("Image saving failed."));
-    }
-}
