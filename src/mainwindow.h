@@ -1,12 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "turtle.h"
+#include "storage.h"
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QFileDialog>
-
-#include "turtle.h"
-#include "storage.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -14,6 +13,10 @@ class MainWindow;
 }
 QT_END_NAMESPACE
 
+/**
+ * @class MainWindow
+ * @brief Represents the main window of the application, managing the UI and interactions with the turtle.
+ */
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -27,6 +30,10 @@ public:
      */
     void setTurtle(Turtle *turtle);
 
+    /**
+     * @brief Sets the house object in the scene.
+     * @param house Pointer to the QGraphicsPixmapItem representing the house.
+     */
     void setHouse(QGraphicsPixmapItem* house);
 
     /**

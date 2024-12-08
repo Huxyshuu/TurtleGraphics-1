@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "../ui/ui_mainwindow.h"
+#include "turtle.h"
+#include "storage.h"
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
 #include <QPixmap>
@@ -16,8 +18,6 @@
 #include <QColorDialog>
 #include <QColor>
 #include <QWidget>
-#include "turtle.h"
-#include "storage.h"
 #include <QImage>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -44,7 +44,7 @@ MainWindow::MainWindow(QWidget *parent)
         house->setOffset(housePixmap.width() / -2.0, housePixmap.height() / -2.0);
         scene->addItem(house);
         setHouse(house); // Store it in the house_ pointer
-        house_->setVisible(false); // Initially hidden
+        house_->setVisible(false); // Initially inactive
     } else {
         std::cerr << "Error: Failed to load house.png" << std::endl;
     }

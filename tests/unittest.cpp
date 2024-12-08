@@ -39,7 +39,6 @@ void unittest::storageTest(){
         && storage.getHistory().at(2) != "forward 10"){
         std::cout << "Wrong order in history" << std::endl;
         flag = true;
-
     }
 
     storage.clearHistory();

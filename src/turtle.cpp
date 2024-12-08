@@ -10,9 +10,6 @@
 #include <QMessageBox>
 #include <cstdlib>
 
-#include <iostream>
-
-
 Turtle::Turtle(const QString& imagePath, QGraphicsScene* scene, Ui::MainWindow* ui)
 {
     turtlePixmap_ = QPixmap(imagePath);
@@ -25,13 +22,11 @@ Turtle::Turtle(const QString& imagePath, QGraphicsScene* scene, Ui::MainWindow* 
 
         // Move the origin of the pixmap to its center
         setOffset(turtlePixmap_.width() / -2.0, turtlePixmap_.height() / -2.0);
-
-        qDebug() << "Turtle image loaded successfully from path:" << imagePath;
     } else {
         qDebug() << "Failed to load turtle image from path:" << imagePath;
     }
 
-    pathItem_ = new QGraphicsPathItem();
+    pathItem_ = new QGraphicsPathItem(this);
     pathItem_->setPen(QPen(Qt::black, 1));
     scene_->addItem(pathItem_);
 }
@@ -41,20 +36,19 @@ Turtle::~Turtle() {
 
 void Turtle::forward(int distance) {
     enqueueCommand([=]() {
-        // Move in the current direction based on angle
         double radians = qDegreesToRadians((double)(currentRotation_));
         double delta_x = distance * std::cos(radians);
         double delta_y = distance * std::sin(radians);
 
         double step_size = 1;
-        steps_ = fmax(1, fmin(10, static_cast<int>(abs(distance) / step_size))); // step size
-        dx_ = (delta_x / steps_); // these have to be double for non-axial movement to work... i'm crying
+        steps_ = fmax(1, fmin(10, static_cast<int>(abs(distance) / step_size)));
+        dx_ = (delta_x / steps_);
         dy_ = (delta_y / steps_);
         currentStep_ = 0;
 
         moveTimer_ = new QTimer(this);
         connect(moveTimer_, &QTimer::timeout, this, &Turtle::onMoveStep);
-        moveTimer_->start(10); // move every given ms
+        moveTimer_->start(10); // ms
     });
 }
 
@@ -81,7 +75,6 @@ void Turtle::go(int x, int y) {
     enqueueCommand([=]() {
         setPos(x, y);
 
-        // Draws a line
         if (drawing_) {
             QPainterPath path = pathItem_->path();
             path.lineTo(pos());
@@ -93,12 +86,9 @@ void Turtle::go(int x, int y) {
     });
 }
 
-// Smoothly move
 void Turtle::onMoveStep() {
     double nextX = x() + dx_;
     double nextY = y() + dy_;
-
-    // qDebug() << "nextX: ( " << x() << " + " << dx_ << " ) and nextY: (" << y() << " + " << dy_ << " )";
 
     QRectF visibleBounds = ui_->graphicsView->sceneRect();
 
@@ -161,7 +151,6 @@ void Turtle::onMoveStep() {
 void Turtle::setDrawing(bool drawing) {
     drawing_ = drawing;
 
-    // Draws a line
     if (drawing_) {
         QPainterPath path = pathItem_->path();
         path.moveTo(pos());
@@ -184,9 +173,6 @@ int Turtle::getRotation() const {
 void Turtle::setBrushSize(int value){
     pensize_ = value;
     pathItem_->setPen(QPen(currentBrushColor_, value));
-    // QPixmap scaledPixmap = turtlePixmap_.scaled(10*pensize_, 10*pensize_, Qt::KeepAspectRatio);
-    // setPixmap(scaledPixmap);
-    // setOffset(turtlePixmap_.width() / -2.0, turtlePixmap_.height() / -2.0);
 }
 
 void Turtle::updateBrushColor(QColor color){
@@ -204,12 +190,9 @@ void Turtle::setHouse(QGraphicsPixmapItem* house) {
 };
 
 void Turtle::resetTurtle() {
-    // Clears all turtle paths
     QPainterPath newPath;
     pathItem_->setPath(newPath);
-    qDebug() << "Turtle reset!";
 
-    // Reset the rotation and position of turtle
     go(0, 0);
     turn(currentRotation_);
     currentPosition_ = {0, 0};
@@ -419,8 +402,6 @@ void Turtle::gameify() {
     h -= sh/2;
 
     randomPos_ = {w, h};
-
-    std::cout << "target:"<<randomPos_.first << " " << randomPos_.second << " current: " << x() << " " << y() << std::endl;
 }
 
 bool Turtle::gameWon() const{
