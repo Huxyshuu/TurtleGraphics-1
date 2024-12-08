@@ -107,8 +107,6 @@ public:
     void spinning(int sides);
     void random();
 
-    std::pair<int, int> getGamePos();
-
     /**
      * @brief Gets the game-specific random position.
      * @return The random position as a pair of (x, y) coordinates.
@@ -124,8 +122,6 @@ public:
      * @brief Turns the turtle graphics into a game mode.
      */
     void gameify();
-
-    void setHouse(QGraphicsPixmapItem* house);
 
     /**
      * @brief Sets the house object for the game mode.
@@ -155,8 +151,6 @@ private:
     QGraphicsScene* scene_;
     Ui::MainWindow* ui_;
     QGraphicsPathItem* pathItem_;
-    QGraphicsPixmapItem* house_;
-
     QGraphicsPixmapItem* house_;
 
     double dx_;

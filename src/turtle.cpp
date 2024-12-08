@@ -9,6 +9,7 @@
 #include "../ui/ui_mainwindow.h"
 #include <QMessageBox>
 #include <cstdlib>
+#include <iostream>
 
 Turtle::Turtle(const QString& imagePath, QGraphicsScene* scene, Ui::MainWindow* ui)
 {
