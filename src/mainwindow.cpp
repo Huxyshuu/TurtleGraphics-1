@@ -68,6 +68,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // color bar
     connect(ui->colorButton, &QPushButton::clicked, this, &MainWindow::openColorDialog);
+    ui->colorButton->setStyleSheet(QString("background-color: #000000;").arg(currentBrushColor.name()));
 
     storage->addToHistory("Type 'help' for commands");
     ui->lineEdit->setFocus();

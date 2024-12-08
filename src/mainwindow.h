@@ -54,6 +54,10 @@ public:
      */
     Ui::MainWindow* getUi() const;
 
+    /**
+     * @brief Executes the given command and updates the UI accordingly.
+     * @param command The command string to execute.
+     */
     void executeCommand(std::string& command);
 
 
