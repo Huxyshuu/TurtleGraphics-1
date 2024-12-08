@@ -8,5 +8,6 @@
         <file>assets/rocket_small.png</file>
         <file>assets/color_bar.png</file>
         <file>assets/house.png</file>
+        <file>assets/image.png</file>
     </qresource>
 </RCC>

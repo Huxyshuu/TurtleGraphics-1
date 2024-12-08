@@ -59,13 +59,15 @@ public:
 
 private slots:
     void on_lineEdit_returnPressed();
-    void on_uploadButton_clicked();
+    void on_loadButton_clicked();
 
     void on_radioButton_toggled(bool checked);
     void updateBrushSize(int value);
     void openColorDialog();
 
-    void on_pushButton_2_pressed();
+    void on_saveStateButton_clicked();
+
+    void on_imageButton_clicked();
 
 private:
     Ui::MainWindow *ui;

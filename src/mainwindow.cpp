@@ -64,7 +64,6 @@ MainWindow::MainWindow(QWidget *parent)
         std::cerr << "Error: Storage model is not initialized!\n";
     }
 
-    connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::on_uploadButton_clicked);
     connect(ui->horizontalSlider, &QSlider::valueChanged, this, &MainWindow::updateBrushSize);
 
     // color bar
@@ -72,6 +71,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     storage->addToHistory("Type 'help' for commands");
     ui->lineEdit->setFocus();
+
+    QPixmap pixmap("://assets/image.png");
+    QIcon ButtonIcon(pixmap);
+    ui->imageButton->setIcon(ButtonIcon);
+    ui->imageButton->setIconSize(pixmap.rect().size());
 
 }
 
@@ -245,7 +249,7 @@ void MainWindow::on_lineEdit_returnPressed()
 }
 
 // Upload file
-void MainWindow::on_uploadButton_clicked()
+void MainWindow::on_loadButton_clicked()
 {
     // This whole function should probably be moved to the storage.cpp/h according to the initial plan?
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Command File"), "", tr("Text Files (*.txt)"));
@@ -322,18 +326,53 @@ void MainWindow::openColorDialog() {
     }
 }
 
-//save function
-void MainWindow::on_pushButton_2_pressed()
+//Save game state
+void MainWindow::on_saveStateButton_clicked()
 {
-    //filename is easier to assign here than in the storage
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), "", tr("Images (*.png *.xpm *.jpg)"));
-    if (fileName.isEmpty()) { return; }
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save Game State"), "", tr("Text Files (*.txt)"));
+    if (fileName.isEmpty()) {
+        return;
+    }
 
-    QImage image = ui->graphicsView->grab().toImage();
+    QFile file(fileName);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QMessageBox::warning(this, tr("Error"), tr("Unable to save file"));
+        return;
+    }
 
-    storage->saveImage(image, fileName);
+    QTextStream out(&file);
+
+    QStringList history = storage->getHistory();
+    for (const QString &entry : history) {
+        // Skip lines containing "saved" or "help"
+        if (!entry.contains("saved", Qt::CaseInsensitive) &&
+            !entry.contains("help", Qt::CaseInsensitive)) {
+            out << entry << "\n";
+        }
+    }
+
+    file.close();
+    storage->addToHistory("Game state saved to: " + fileName );
 }
+
 
 Ui::MainWindow* MainWindow::getUi() const {
     return ui;
 }
+
+void MainWindow::on_imageButton_clicked()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save Image"), "", tr("Images (*.png *.xpm *.jpg)"));
+    if (fileName.isEmpty()) { return; }
+
+    QImage image = ui->graphicsView->grab().toImage();
+
+    if (image.save(fileName)) {
+        storage->addToHistory("Image saved to: " + fileName );
+    }
+    else {
+        QMessageBox::critical(nullptr, QObject::tr("Save error"),
+                              QObject::tr("Saving failed."));
+    }
+}
+

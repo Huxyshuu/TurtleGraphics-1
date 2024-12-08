@@ -175,7 +175,7 @@ color: #2E2E2E;</string>
      <rect>
       <x>560</x>
       <y>60</y>
-      <width>191</width>
+      <width>151</width>
       <height>41</height>
      </rect>
     </property>
@@ -289,7 +289,7 @@ border-bottom-left-radius: 10px;
      <enum>QFrame::Shadow::Raised</enum>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="loadButton">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -324,7 +324,7 @@ QPushButton:hover {
      <string>Load</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="saveStateButton">
     <property name="geometry">
      <rect>
       <x>156</x>
@@ -464,7 +464,7 @@ QRadioButton::indicator:unchecked {
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>550</x>
       <y>20</y>
       <width>91</width>
       <height>21</height>
@@ -480,7 +480,7 @@ QRadioButton::indicator:unchecked {
    <widget class="QPushButton" name="colorButton">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>550</x>
       <y>40</y>
       <width>56</width>
       <height>18</height>
@@ -488,6 +488,52 @@ QRadioButton::indicator:unchecked {
     </property>
     <property name="text">
      <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="imageButton">
+    <property name="geometry">
+     <rect>
+      <x>730</x>
+      <y>20</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	background-color: #F4F4F4;
+	border-radius: 6px;
+	padding: 6px;
+	color: #2E2E2E;
+}
+
+QPushButton:pressed {
+    background-color: #D0D0D0;
+    color: #2E2E2E;
+}
+
+QPushButton:hover {
+    background-color: #A2A2A2;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>20</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 10pt &quot;Consolas&quot;; color: #A4A4A4;</string>
+    </property>
+    <property name="text">
+     <string>Save Image</string>
     </property>
    </widget>
    <zorder>listView</zorder>
@@ -499,14 +545,16 @@ QRadioButton::indicator:unchecked {
    <zorder>TopRightCorner</zorder>
    <zorder>BottomRightCorner</zorder>
    <zorder>BottomLeftCorner</zorder>
-   <zorder>pushButton</zorder>
-   <zorder>pushButton_2</zorder>
+   <zorder>loadButton</zorder>
+   <zorder>saveStateButton</zorder>
    <zorder>label_3</zorder>
    <zorder>radioButton</zorder>
    <zorder>horizontalSlider</zorder>
    <zorder>label_4</zorder>
    <zorder>label_5</zorder>
    <zorder>colorButton</zorder>
+   <zorder>imageButton</zorder>
+   <zorder>label_6</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
