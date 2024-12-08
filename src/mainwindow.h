@@ -68,5 +68,6 @@ private:
     bool updatingRadioButton_ = false;
     QWidget *colorWidget;
     QColor currentBrushColor;
+    QGraphicsScene *scene_;
 };
 #endif // MAINWINDOW_H

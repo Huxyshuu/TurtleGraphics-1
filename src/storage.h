@@ -10,6 +10,7 @@ class Storage
 {
   public:
     Storage();
+    ~Storage();
 
       /**
      * @brief addToHistory adds user typed commands to a list

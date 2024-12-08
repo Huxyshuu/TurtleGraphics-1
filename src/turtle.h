@@ -14,6 +14,7 @@ class Turtle : public QObject, public QGraphicsPixmapItem
     Q_OBJECT
 public:
     Turtle(const QString& imagePath, QGraphicsScene* scene, Ui::MainWindow* ui);
+    ~Turtle();
 
     /**
      * @brief Moves the turtle in the facing direction a distance given
@@ -116,7 +117,7 @@ private:
     double target_y_;
     QTimer *moveTimer_;
 
-    int pensize_;
+    int pensize_ = 1;
     QColor currentBrushColor_;
 };
 

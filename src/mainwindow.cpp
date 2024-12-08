@@ -28,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     QGraphicsScene *scene = new QGraphicsScene(this);
+    scene_ = scene;
 
     // Create a Turtle object
     Turtle *turtle = new Turtle(":/assets/turtle_mid.png", scene, ui);
@@ -77,6 +78,9 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete storage;
+    delete house_;
+    delete turtle_;
 }
 
 void MainWindow::setTurtle(Turtle *turtle) {

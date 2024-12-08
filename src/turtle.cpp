@@ -36,6 +36,9 @@ Turtle::Turtle(const QString& imagePath, QGraphicsScene* scene, Ui::MainWindow* 
     scene_->addItem(pathItem_);
 }
 
+Turtle::~Turtle() {
+};
+
 void Turtle::forward(int distance) {
     enqueueCommand([=]() {
         // Move in the current direction based on angle
@@ -53,8 +56,6 @@ void Turtle::forward(int distance) {
         connect(moveTimer_, &QTimer::timeout, this, &Turtle::onMoveStep);
         moveTimer_->start(10); // move every given ms
     });
-
-    qDebug() << "Done now!";
 }
 
 void Turtle::turn(int angle) {
