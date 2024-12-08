@@ -30,6 +30,8 @@ public:
      */
     void setTurtle(Turtle *turtle);
 
+    void setHouse(QGraphicsPixmapItem* house);
+
     /**
      * @brief Sets the house object in the scene.
      * @param house Pointer to the QGraphicsPixmapItem representing the house.

@@ -50,6 +50,8 @@ void Turtle::forward(int distance) {
         connect(moveTimer_, &QTimer::timeout, this, &Turtle::onMoveStep);
         moveTimer_->start(10); // ms
     });
+
+    qDebug() << "Done now!";
 }
 
 void Turtle::turn(int angle) {
@@ -402,6 +404,8 @@ void Turtle::gameify() {
     h -= sh/2;
 
     randomPos_ = {w, h};
+
+    std::cout << "target:"<<randomPos_.first << " " << randomPos_.second << " current: " << x() << " " << y() << std::endl;
 }
 
 bool Turtle::gameWon() const{
