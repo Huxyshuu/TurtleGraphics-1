@@ -200,6 +200,7 @@ void Turtle::resetTurtle() {
     turn(currentRotation_);
     currentPosition_ = {0, 0};
     currentRotation_ = 0;
+    randomPos_ = {-999, 999};
 }
 
 void Turtle::updateUI() {

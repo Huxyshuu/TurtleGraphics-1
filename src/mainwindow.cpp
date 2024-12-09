@@ -169,6 +169,8 @@ void MainWindow::executeCommand(std::string& command) {
         else if (commandData.first == "reset") {
             turtle_->resetTurtle();
             storage->clearHistory();
+            house_->setVisible(false);
+            storage->addToHistory("Type 'help' for commands");
         }
         else if (commandData.first == "gameify") {
             std::cout << "Get the turtle home!" << std::endl;

@@ -143,7 +143,7 @@ private:
 
     int currentRotation_ = 0; // [0° - 360°] -> 0° (facing right) and 90° (facing up)
     std::pair<int, int> currentPosition_ = {0, 0};
-    std::pair<int, int> randomPos_ = {0, 0};
+    std::pair<int, int> randomPos_ = {-999, 999};
 
     std::queue<std::function<void()>> commandQueue_;
     bool isProcessingCommand_ = false;
