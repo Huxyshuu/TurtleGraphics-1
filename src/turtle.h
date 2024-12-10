@@ -2,6 +2,7 @@
 #define TURTLE_H
 
 #include "../ui/ui_mainwindow.h"
+#include <QMediaPlayer>
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
 #include <QObject>
@@ -164,6 +165,8 @@ private:
     int pensize_ = 1;
     QColor currentBrushColor_;
     bool drawing_ = true;
+    QMediaPlayer* moveSoundPlayer_;  // Media player for sound effect
+    QAudioOutput* audioOutput_;      // Audio output for media player
 };
 
 #endif // TURTLE_H

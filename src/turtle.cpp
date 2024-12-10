@@ -1,3 +1,6 @@
+#include <QMediaPlayer>
+#include <QAudioOutput>
+#include <QUrl>
 #include <QDebug>
 #include "turtle.h"
 #include <QGraphicsScene>
@@ -17,6 +20,13 @@ Turtle::Turtle(const QString& imagePath, QGraphicsScene* scene, Ui::MainWindow* 
     scene_ = scene;
     ui_ = ui;
 
+    moveSoundPlayer_ = new QMediaPlayer(this);
+    audioOutput_ = new QAudioOutput(this);
+    moveSoundPlayer_->setAudioOutput(audioOutput_);
+
+    moveSoundPlayer_->setSource(QUrl("qrc:/sounds/funny.mp3"));
+    audioOutput_->setVolume(1.0); // Set the volume to maximum
+
     // Check if the image loaded successfully
     if (!turtlePixmap_.isNull()) {
         setPixmap(turtlePixmap_);
@@ -30,13 +40,19 @@ Turtle::Turtle(const QString& imagePath, QGraphicsScene* scene, Ui::MainWindow* 
     pathItem_ = new QGraphicsPathItem(this);
     pathItem_->setPen(QPen(Qt::black, 1));
     scene_->addItem(pathItem_);
-}
+} 
 
 Turtle::~Turtle() {
+    delete moveSoundPlayer_;
+    delete audioOutput_;
 };
 
 void Turtle::forward(int distance) {
     enqueueCommand([=]() {
+        // Play the sound when movement starts
+        if (moveSoundPlayer_->mediaStatus() != QMediaPlayer::LoadingMedia) {
+            moveSoundPlayer_->play();
+        }
         double radians = qDegreesToRadians((double)(currentRotation_));
         double delta_x = distance * std::cos(radians);
         double delta_y = distance * std::sin(radians);
