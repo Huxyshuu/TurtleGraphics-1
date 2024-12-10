@@ -9,5 +9,6 @@
         <file>assets/color_bar.png</file>
         <file>assets/house.png</file>
         <file>assets/image.png</file>
+        <file>sounds/funny.mp3</file>
     </qresource>
 </RCC>
