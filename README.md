@@ -1,3 +1,6 @@
+<img src="https://i.imgur.com/5iHKjee.png" align="right"
+     alt="KokkiKawaii logo" width="304" height="178">
+
 # Turtle Graphics
 
 This project implements a Turtle Graphics simulation using the Qt framework. Turtle Graphics allows users to create visual patterns and designs by controlling a "turtle" that moves around the screen, leaving a trail as it goes. This application lets users command the turtle to move forward, turn, and change colors to hopefully create complex and dynamic graphics.
